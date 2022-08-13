@@ -1,0 +1,140 @@
+{
+  "type": "page",
+  "title": "教师续班率统计",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/data-center/list2",
+      "filter": {
+        "title": "请选择开课年、季度、部门",
+        "body": [
+          {
+            "type": "flex",
+            "justify": "space-between",
+            "alignItems": "center",
+            "items": [
+              {
+                "type": "input-year",
+                "name": "clazzYear",
+                "label": "开课年：",
+                "value": 1690819200000,
+                "format": "x"
+              },
+              {
+                "label": "季度",
+                "type": "select",
+                "name": "season",
+                "value": 1,
+                "options": [
+                  {
+                    "label": "春季",
+                    "value": 1
+                  },
+                  {
+                    "label": "夏季",
+                    "value": 2
+                  },
+                  {
+                    "label": "秋季",
+                    "value": 3
+                  },
+                  {
+                    "label": "冬季",
+                    "value": 4
+                  }
+                ]
+              },
+              {
+                "label": "部门",
+                "type": "select",
+                "name": "dep",
+                "value": 1,
+                "options": [
+                  {
+                    "label": "小学部",
+                    "value": 1
+                  },
+                  {
+                    "label": "初中部",
+                    "value": 2
+                  },
+                  {
+                    "label": "高中部",
+                    "value": 3
+                  },
+                  {
+                    "label": "素养部",
+                    "value": 4
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "columns": [
+        {
+          "name": "empId",
+          "label": "教师id",
+          "visible": false
+        },
+        {
+          "name": "empName",
+          "label": "教师",
+          "sortable": true
+        },
+        {
+          "name": "clazzSum",
+          "label": "带班数量",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "name": "finishMember",
+          "label": "结课人数",
+          "sortable": true
+        },
+        {
+          "name": "continueMember",
+          "label": "续报人数",
+          "sortable": true
+        },
+        {
+          "name": "continueRate",
+          "label": "续报率"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看明细",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/data/teacherContinue/${empId}"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

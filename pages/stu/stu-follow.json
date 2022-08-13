@@ -1,0 +1,114 @@
+{
+  "type": "page",
+  "title": "学生跟进情况",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/stu/list",
+      "columns": [
+        {
+          "name": "id",
+          "label": "学生id",
+          "sortable": true,
+          "visible": false
+        },
+        {
+          "name": "stuName",
+          "label": "学生姓名",
+          "width": 20
+        },
+        {
+          "name": "stuFollowState",
+          "label": "跟进状态",
+          "type": "mapping",
+          "map": {
+            "1": "未约",
+            "2": "未测",
+            "3": "未录取",
+            "4": "未通知",
+            "5": "已通知",
+            "6": "未交费",
+            "7": "已转化"
+          }
+        },
+        {
+          "name": "stuFollowPeople",
+          "label": "跟进人"
+        },
+        {
+          "label": "跟进时间时间",
+          "name": "stuFollowDate",
+          "type": "date",
+          "valueFormat": "x"
+        },
+        {
+          "name": "stuFollowContent",
+          "label": "跟进沟通内容"
+        },
+        {
+          "name": "stuFollowExamTime",
+          "label": "预约测试时间",
+          "type": "date",
+          "valueFormat": "x"
+        },
+        {
+          "name": "stuFollowExamSubject",
+          "label": "预约测试科目"
+        },
+        {
+          "name": "stuFollowExamIsArrive",
+          "label": "测试到场情况",
+          "type": "mapping",
+          "map": {
+            "1": "已到场",
+            "0": "未到场"
+          }
+        },
+        {
+          "name": "stuFollowExamScore",
+          "label": "测试分数"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/stu/follow/${id}/put"
+                },
+                {
+                  "type": "button",
+                  "label": "报名",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/stu/enroll/${id}"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

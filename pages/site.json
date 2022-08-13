@@ -1,0 +1,207 @@
+{
+  "status": 0,
+  "msg": "",
+  "data": {
+    "pages": [
+      {
+        "label": "Home",
+        "url": "/",
+        "redirect": "/index/1"
+      },
+      {
+        "label": "分组1",
+        "children": [
+          {
+            "label": "人员管理",
+            "url": "/emp",
+            "rewrite": "/emp/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "员工管理",
+                "url": "/emp/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/emp/emp-list.json"
+              },
+              {
+                "label": "查看员工",
+                "url": "/emp/:id",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/emp/emp-view.json"
+              },
+              {
+                "label": "修改员工",
+                "url": "/emp/:id/put",
+                "schemaApi": "get:/pages/emp/emp-edit.json"
+              },
+
+
+              {
+                "label": "学生管理",
+                "url": "/stu/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/stu/stu-list.json"
+              },
+              {
+                "label": "跟进管理",
+                "url": "/stu/follow",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/stu/stu-follow.json"
+              },
+              {
+                "label": "修改学生信息",
+                "url": "/stu/:id/put",
+                "schemaApi": "get:/pages/stu/stu-edit.json"
+              },
+              {
+                "label": "更新学生跟进信息",
+                "url": "/stu/follow/:id/put",
+                "schemaApi": "get:/pages/stu/follow-edit.json"
+              },
+              {
+                "label": "报名",
+                "url": "/stu/enroll/:id",
+                "schemaApi": "get:/pages/stu/enroll.json"
+              }
+            ]
+          },
+          {
+            "label": "教务管理",
+            "url": "/clazz",
+            "rewrite": "/clazz/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "班级管理",
+                "url": "/clazz/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/clazz/clazz-list.json"
+              },
+              {
+                "label": "班级学员管理",
+                "url": "/clazz/:id",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/clazz/clazz-manager.json"
+              },
+              {
+                "label": "修改班级信息",
+                "url": "/clazz/:id/put",
+                "schemaApi": "get:/pages/clazz/clazz-edit.json"
+              },
+              {
+                "label": "课程管理",
+                "url": "/course/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/course/course-list.json"
+              },
+              {
+                "label": "修改课程信息",
+                "url": "/course/:id/put",
+                "schemaApi": "get:/pages/course/course-edit.json"
+              },
+              {
+                "label": "学科管理",
+                "url": "/subject/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/subject/subject-list.json"
+              }
+            ]
+          },
+          {
+            "label": "数据中心",
+            "url": "/data",
+            "rewrite": "/data/list1",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "教师课消统计",
+                "url": "/data/list1",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/teacher-lesson-consume/list1.json"
+              },
+              {
+                "label": "查看课消详细信息",
+                "url": "/data/:id",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/data-center/teacher-lesson-consume/view.json"
+              },
+              {
+                "label": "教师续班率统计",
+                "url": "/data/teacherContinue/list2",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/teacher-continue-clazz/list2.json"
+              },
+              {
+                "label": "查看结课学生信息",
+                "url": "/data/teacherContinue/:id",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/data-center/teacher-continue-clazz/view2.json"
+              },
+              {
+                "label": "助教补课统计",
+                "url": "/data/tutorAddition/list3",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/tutor-addition-lesson/list3.json"
+              },
+              {
+                "label": "补课明细",
+                "url": "/data/tutorAddition/:id",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/tutor-addition-lesson/view3.json"
+              },
+              {
+                "label": "助教带生统计",
+                "url": "/data/tutorStu/list4",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/tutor-stu/list4.json"
+              },
+              {
+                "label": "教务招生统计",
+                "url": "/data/deanEnroll/list5",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/dean-enroll/list5.json"
+              },
+              {
+                "label": "教务续班率统计",
+                "url": "/data/deanContinue/list6",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/dean-continue-clazz/list6.json"
+              },
+              {
+                "label": "年级续报明细",
+                "url": "/data/deanContinue/:grade",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/data-center/dean-continue-clazz/view6.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "分组2",
+        "children": [
+          {
+            "label": "用户管理",
+            "schema": {
+              "type": "page",
+              "title": "用户管理",
+              "body": "页面C"
+            }
+          },
+          {
+            "label": "外部链接",
+            "link": "http://baidu.gitee.io/amis"
+          },
+          {
+            "label": "部门管理",
+            "schemaApi": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3"
+          },
+          {
+            "label": "jsonp 返回示例",
+            "schemaApi": "jsonp:/pages/jsonp.js?callback=jsonpCallback"
+          }
+        ]
+      }
+    ]
+  }
+}

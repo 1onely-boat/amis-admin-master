@@ -1,0 +1,169 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/clazz/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "debug": true,
+      "initApi": {
+        "method": "get",
+        "url": "http://localhost:8888/clazz/${params.id}"
+      },
+      "api": {
+        "mehtod": "post",
+        "url": "http://localhost:8888/clazz/${params.id}/put",
+        "data": {
+          "&": "$$",
+          "_from": "browser"
+        }
+      },
+      "redirect": "/clazz/list",
+      "body": [
+        {
+          "type": "input-text",
+          "name": "id",
+          "label": "班级id：",
+          "visible": false
+        },
+        {
+          "label": "课程选择",
+          "type": "select",
+          "name": "courseId",
+          "required": true,
+          "source": "http://localhost:8888/clazz/courseList"
+        },
+        {
+          "label": "教师选择",
+          "type": "select",
+          "name": "empId",
+          "required": true,
+          "source": "http://localhost:8888/clazz/empList"
+        },
+        {
+          "type": "input-year",
+          "name": "clazzYear",
+          "label": "开课年：",
+          "format": "x",
+          "required": true
+        },
+        {
+          "label": "季度",
+          "type": "select",
+          "name": "clazzSeason",
+          "required": true,
+          "options": [
+            {
+              "label": "春季",
+              "value": 1
+            },
+            {
+              "label": "夏季",
+              "value": 2
+            },
+            {
+              "label": "秋季",
+              "value": 3
+            },
+            {
+              "label": "冬季",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "type": "input-date",
+          "name": "clazzStartDate",
+          "label": "开课日期",
+          "format": "x",
+          "required": true
+        },
+        {
+          "type": "input-time",
+          "name": "clazzStartTime",
+          "label": "上课时间",
+          "required": true,
+          "format": "x"
+        },
+        {
+          "type": "input-time",
+          "name": "clazzEndTime",
+          "label": "下课时间",
+          "required": true,
+          "format": "x"
+        },
+        {
+          "type": "input-number",
+          "name": "clazzSum",
+          "label": "课程总次数",
+          "required": true
+        },
+        {
+          "label": "上课频率",
+          "type": "select",
+          "name": "clazzFrequency",
+          "options": [
+            {
+              "label": "每天一次",
+              "value": 1
+            },
+            {
+              "label": "每周一次",
+              "value": 2
+            },
+            {
+              "label": "隔天一次",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "label": "班级类型",
+          "type": "select",
+          "name": "clazzType",
+          "options": [
+            {
+              "label": "一对一",
+              "value": 1
+            },
+            {
+              "label": "一对多",
+              "value": 2
+            },
+            {
+              "label": "大班课",
+              "value": 3
+            },
+            {
+              "label": "短期课",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "type": "input-number",
+          "name": "clazzLeastMember",
+          "label": "最少开班人数",
+          "required": true
+        },
+        {
+          "type": "input-number",
+          "name": "clazzMostMember",
+          "label": "满班人数",
+          "required": true
+        }
+      ]
+
+
+
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "type": "page",
+  "title": "学生列表",
+  "remark": null,
+  "name": "page-demo",
+  "toolbar": [
+    {
+      "type": "button",
+      "label": "新增学生",
+      "level": "primary",
+      "actionType": "drawer",
+      "drawer": {
+        "position": "top",
+        "title": "请填写学生信息",
+        "body":[
+          {
+            "title": "",
+            "type": "form",
+            "api": "http://localhost:8888/stu",
+            "name": "sample-edit-form",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "stuName",
+                "label": "学生姓名：",
+                "required": true
+              },
+              {
+                "label": "所属部门",
+                "type": "select",
+                "name": "stuDep",
+                "options": [
+                  {
+                    "label": "小学部",
+                    "value": 1
+                  },
+                  {
+                    "label": "初中部",
+                    "value": 2
+                  },
+                  {
+                    "label": "高中部",
+                    "value": 3
+                  },
+                  {
+                    "label": "素养部",
+                    "value": 4
+                  }
+                ]
+              },
+              {
+                "label": "学生年级",
+                "type": "select",
+                "name": "stuGrade",
+                "required": true,
+                "options": [
+                  {
+                    "label": "大班",
+                    "value": 1,
+                    "visibleOn": "${stuDep == 1}"
+                  },
+                  {
+                    "label": "一年级",
+                    "value": 2,
+                    "visibleOn": "${stuDep == 1 || stuDep == 4}"
+                  },
+                  {
+                    "label": "二年级",
+                    "value": 3,
+                    "visibleOn": "${stuDep == 1 || stuDep == 4}"
+                  },
+                  {
+                    "label": "三年级",
+                    "value": 4,
+                    "visibleOn": "${stuDep == 1 || stuDep == 4}"
+                  },
+                  {
+                    "label": "四年级",
+                    "value": 5,
+                    "visibleOn": "${stuDep == 1 || stuDep == 4}"
+                  },
+                  {
+                    "label": "五年级",
+                    "value": 6,
+                    "visibleOn": "${stuDep == 1 || stuDep == 4}"
+                  },
+                  {
+                    "label": "六年级",
+                    "value": 7,
+                    "visibleOn": "${stuDep == 1 || stuDep == 2 || stuDep == 4}"
+                  },
+                  {
+                    "label": "七年级",
+                    "value": 8,
+                    "visibleOn": "${stuDep == 1 || stuDep == 2}"
+                  },
+                  {
+                    "label": "八年级",
+                    "value": 9,
+                    "visibleOn": "${stuDep == 2}"
+                  },
+                  {
+                    "label": "九年级",
+                    "value": 10,
+                    "visibleOn": "${stuDep == 2 || stuDep == 3}"
+                  },
+                  {
+                    "label": "高一",
+                    "value": 11,
+                    "visibleOn": "${stuDep == 3}"
+                  },
+                  {
+                    "label": "高二",
+                    "value": 12,
+                    "visibleOn": "${stuDep == 3}"
+                  },
+                  {
+                    "label": "高三",
+                    "value": 13,
+                    "visibleOn": "${stuDep == 3}"
+                  }
+                ]
+              },
+              {
+                "label": "意向科目",
+                "type": "select",
+                "name": "stuIntentionSubject",
+                "required": true,
+                "source": "http://localhost:8888/course/subjectList/${stuDep}",
+                "visibleOn": "${stuDep > 0}"
+              },
+              {
+                "type": "input-text",
+                "name": "stuSchool",
+                "label": "学生学校：",
+                "required": true
+              },
+              {
+                "type": "input-text",
+                "name": "stuParentPhone",
+                "label": "家长手机号：",
+                "required": true
+              }
+            ]
+          }
+        ]
+
+      }
+    }
+
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/stu/list",
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "controls": [
+          {
+            "type": "text",
+            "name": "keywords",
+            "placeholder": "通过关键字搜索",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "className": "btn-success"
+            },
+            "clearable": true
+          }
+        ],
+        "className": "m-b-sm"
+      },
+      "bulkActions": [
+        {
+          "label": "批量修改",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "dialog": {
+            "title": "批量编辑",
+            "name": "sample-bulk-edit",
+            "body": {
+              "type": "form",
+              "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample/bulkUpdate2/",
+              "controls": [
+                {
+                  "type": "text",
+                  "name": "engine",
+                  "label": "Engine"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "label": "批量删除",
+          "type": "button",
+          "level": "danger",
+          "actionType": "ajax",
+          "api": "http://localhost:8888/stu/${ids}/deleteS",
+          "confirmText": "确定要批量删除?",
+          "primaryField": "id"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "学生id",
+          "sortable": true,
+          "visible": false
+        },
+        {
+          "name": "stuName",
+          "label": "学生姓名",
+          "width": 20
+        },
+        {
+          "name": "stuDep",
+          "label": "学生部门",
+          "type": "mapping",
+          "map": {
+            "1": "小学部",
+            "2": "初中部",
+            "3": "高中部",
+            "4": "素养部"
+          }
+        },
+        {
+          "name": "stuGrade",
+          "label": "学生年级段",
+          "type": "mapping",
+          "map": {
+            "1": "幼儿大班",
+            "2": "一年级",
+            "3": "二年级",
+            "4": "三年级",
+            "5": "四年级",
+            "6": "五年级",
+            "7": "六年级",
+            "8": "七年级",
+            "9": "八年级",
+            "10": "九年级",
+            "11": "高一",
+            "12": "高二",
+            "13": "高三"
+          }
+        },
+        {
+          "name": "stuStatus",
+          "label": "学生状态",
+          "type": "mapping",
+          "map": {
+            "0": "未报名",
+            "1": "在读",
+            "2": "退费",
+            "3": "停课"
+          }
+        },
+        {
+          "name": "subjectName",
+          "label": "意向科目"
+        },
+        {
+          "name": "stuSchool",
+          "label": "学生学校"
+        },
+        {
+          "name": "stuParentPhone",
+          "label": "家长手机号"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/stu/${id}",
+                  "visible": false
+                },
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/stu/${id}/put"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "http://localhost:8888/stu/${id}/delete"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

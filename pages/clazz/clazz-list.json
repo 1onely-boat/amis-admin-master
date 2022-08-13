@@ -1,0 +1,361 @@
+{
+  "type": "page",
+  "title": "班级列表",
+  "remark": null,
+  "name": "page-demo",
+  "toolbar": [
+    {
+      "type": "button",
+      "label": "新建班级",
+      "level": "primary",
+      "actionType": "drawer",
+      "drawer": {
+        "position": "top",
+        "title": "请填写班级信息",
+        "body":[
+          {
+            "title": "",
+            "type": "form",
+            "debug": true,
+            "api": "http://localhost:8888/clazz",
+            "name": "sample-edit-form",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "id",
+                "label": "班级id：",
+                "visible": false
+              },
+              {
+                "label": "课程选择",
+                "type": "select",
+                "name": "courseId",
+                "required": true,
+                "source": "http://localhost:8888/clazz/courseList"
+              },
+              {
+                "label": "教师选择",
+                "type": "select",
+                "name": "empId",
+                "required": true,
+                "source": "http://localhost:8888/clazz/empList"
+              },
+              {
+                "type": "input-year",
+                "name": "clazzYear",
+                "label": "开课年：",
+                "format": "x",
+                "required": true
+              },
+              {
+                "label": "季度",
+                "type": "select",
+                "name": "clazzSeason",
+                "required": true,
+                "options": [
+                  {
+                    "label": "春季",
+                    "value": 1
+                  },
+                  {
+                    "label": "夏季",
+                    "value": 2
+                  },
+                  {
+                    "label": "秋季",
+                    "value": 3
+                  },
+                  {
+                    "label": "冬季",
+                    "value": 4
+                  }
+                ]
+              },
+              {
+                "type": "input-date",
+                "name": "clazzStartDate",
+                "label": "开课日期",
+                "required": true,
+                "format": "x"
+              },
+              {
+                "type": "input-time",
+                "name": "clazzStartTime",
+                "label": "上课时间",
+                "required": true,
+                "format": "x"
+              },
+              {
+                "type": "input-time",
+                "name": "clazzEndTime",
+                "label": "下课时间",
+                "required": true,
+                "format": "x"
+              },
+              {
+                "type": "input-number",
+                "name": "clazzSum",
+                "label": "课程总次数",
+                "required": true
+              },
+              {
+                "label": "上课频率",
+                "type": "select",
+                "name": "clazzFrequency",
+                "options": [
+                  {
+                    "label": "每天一次",
+                    "value": 1
+                  },
+                  {
+                    "label": "每周一次",
+                    "value": 2
+                  },
+                  {
+                    "label": "隔天一次",
+                    "value": 3
+                  }
+                ]
+              },
+              {
+                "label": "班级类型",
+                "type": "select",
+                "name": "clazzType",
+                "options": [
+                  {
+                    "label": "一对一",
+                    "value": 1
+                  },
+                  {
+                    "label": "一对多",
+                    "value": 2
+                  },
+                  {
+                    "label": "大班课",
+                    "value": 3
+                  },
+                  {
+                    "label": "短期课",
+                    "value": 4
+                  }
+                ]
+              },
+              {
+                "type": "input-number",
+                "name": "clazzLeastMember",
+                "label": "最少开班人数",
+                "required": true
+              },
+              {
+                "type": "input-number",
+                "name": "clazzMostMember",
+                "label": "满班人数",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/clazz/list",
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "controls": [
+          {
+            "type": "text",
+            "name": "keywords",
+            "placeholder": "通过课程id搜索",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "className": "btn-success"
+            },
+            "clearable": true
+          }
+        ],
+        "className": "m-b-sm"
+      },
+      "bulkActions": [
+        {
+          "label": "批量修改",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "dialog": {
+            "title": "批量编辑",
+            "name": "sample-bulk-edit",
+            "body": {
+              "type": "form",
+              "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample/bulkUpdate2/",
+              "controls": [
+                {
+                  "type": "text",
+                  "name": "engine",
+                  "label": "Engine"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "label": "批量删除",
+          "type": "button",
+          "level": "danger",
+          "actionType": "ajax",
+          "api": "http://localhost:8888/clazz/${ids}/deleteS",
+          "confirmText": "确定要批量删除?",
+          "primaryField": "id"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "班级id",
+          "visible": false
+        },
+        {
+          "name": "clazzName",
+          "label": "班级名"
+        },
+        {
+          "name": "clazzDep",
+          "label": "部门"
+        },
+        {
+          "name": "grade",
+          "label": "年级"
+        },
+        {
+          "name": "empName",
+          "label": "授课教师"
+        },
+        {
+          "name": "clazzYear",
+          "label": "开课年"
+        },
+        {
+          "name": "clazzSeason",
+          "label": "开课季节"
+        },
+        {
+          "name": "clazzStartDate",
+          "label": "开课日期"
+        },
+        {
+          "name": "clazzStartTime",
+          "label": "上课时间"
+        },
+        {
+          "name": "clazzEndTime",
+          "label": "下课时间"
+        },
+        {
+          "name": "clazzSum",
+          "label": "上课总次数"
+        },
+        {
+          "name": "clazzFrequency",
+          "label": "上课频率"
+        },
+        {
+          "name": "clazzType",
+          "label": "班级类型"
+        },
+        {
+          "name": "clazzMember",
+          "label": "报名人数"
+        },
+        {
+          "name": "clazzLeastMember",
+          "label": "最少开班人数"
+        },
+        {
+          "name": "clazzMostMember",
+          "label": "满班人数"
+        },
+        {
+          "label": "是否结课",
+          "type": "status",
+          "name": "clazzIsFinish",
+          "map": {
+              "0": "fa fa-check-circle",
+              "1": "fa fa-times-circle"
+          },
+          "labelMap": {
+            "0": "未结课",
+            "1": "已结课"
+          },
+          "value": "${clazzIsFinish}"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "班级学员管理",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/clazz/${id}"
+                },
+                {
+                  "type": "button",
+                  "label": "修改班级信息",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/clazz/${id}/put"
+                },
+                {
+                  "type": "button",
+                  "label": "结课",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要结课?",
+                  "api": {
+                    "url":"http://localhost:8888/clazz/finishClazz",
+                    "method": "get",
+                    "data":{
+                      "clazzId": "${id}"
+                    }
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "http://localhost:8888/clazz/${id}/delete"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

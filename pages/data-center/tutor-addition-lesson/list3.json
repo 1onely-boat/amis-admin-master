@@ -1,0 +1,107 @@
+{
+  "type": "page",
+  "title": "助教补课统计",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/data-center/list3",
+      "filter": {
+        "title": "请选择部门，统计日期范围",
+        "debug": true,
+        "body": [
+          {
+            "type": "flex",
+            "justify": "space-between",
+            "alignItems": "center",
+            "items": [
+              {
+                "type": "input-date-range",
+                "name": "select",
+                "label": "日期范围",
+                "value": "1640966400,1672502400"
+              },
+              {
+                "label": "部门",
+                "type": "select",
+                "name": "dep",
+                "value": 1,
+                "options": [
+                  {
+                    "label": "小学部",
+                    "value": 1
+                  },
+                  {
+                    "label": "初中部",
+                    "value": 2
+                  },
+                  {
+                    "label": "高中部",
+                    "value": 3
+                  },
+                  {
+                    "label": "素养部",
+                    "value": 4
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "columns": [
+        {
+          "name": "empId",
+          "label": "助教id",
+          "visible": false
+        },
+        {
+          "name": "empName",
+          "label": "助教姓名",
+          "sortable": true
+        },
+        {
+          "name": "additionNum",
+          "label": "补课总人数",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "name": "additionTimeSum",
+          "label": "补课总时长（分钟）",
+          "sortable": true
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看明细",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/data/tutorAddition/${empId}"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

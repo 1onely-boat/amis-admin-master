@@ -1,0 +1,861 @@
+{
+  "type": "page",
+  "title": "${params.id}${clazzName}",
+  "remark": null,
+  "name": "page-demo",
+  "initApi": "http://localhost:8888/clazz/${params.id}",
+  "toolbar": [
+      {
+        "title": "请选择课次",
+        "type": "form",
+        "target": "sample,my_service",
+        "body": [
+          {
+            "label": "请选择课次${lessonIndex}",
+            "type": "select",
+            "value": 0,
+            "name": "lessonIndex",
+            "source": "http://localhost:8888/lesson/indexList/${params.id}"
+          }
+        ],
+        "submitText": "确定"
+      }
+  ],
+  "body": [
+
+    {
+      "type": "service",
+      "api": "http://localhost:8888/clazz/wrap/${params.id}",
+      "body": {
+        "type": "panel",
+        "body": {
+          "type": "list",
+          "source": "${items}",
+          "listItem": {
+            "body": [
+              {
+                "type": "hbox",
+                "columns": [
+                  {
+                    "label": "班级人数",
+                    "name": "${clazzMember}"
+                  },
+                  {
+                    "label": "开课日期",
+                    "name": "${startDate}"
+                  },
+                  {
+                    "label": "上课时间",
+                    "name": "${startTime}"
+                  },
+                  {
+                    "name": "${endTime}",
+                    "label": "下课时间"
+                  },
+                  {
+                    "name": "${empName}",
+                    "label": "授课老师"
+                  },
+                  {
+                    "name": "${clazzSum}",
+                    "label": "课程总次数"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "type": "crud",
+      "name": "sample",
+      "target": "my_service",
+      "syncLocation": false,
+      "api": {
+        "url": "http://localhost:8888/stu/lessonStu",
+        "sendOn": "${lessonIndex != null}",
+        "method": "get",
+        "data": {
+          "clazzId": "${params.id}",
+          "lessonIndex": "${lessonIndex}"
+        }
+      },
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "controls": [
+
+        ],
+        "className": "m-b-sm"
+      },
+      "columns": [
+        {
+          "name": "id",
+          "label": "学生id",
+          "sortable": true,
+          "visible": false
+        },
+        {
+          "name": "stuName",
+          "label": "学生姓名",
+          "width": 20
+        },
+        {
+          "name": "stuParentPhone",
+          "label": "家长联系方式"
+        },
+        {
+          "type": "service",
+          "visibleOn": "${clazzIsFinish == 0}",
+          "label": "点到（处于补课、停课状态无法点到）",
+          "interval": "1000",
+          "silentPolling": true,
+          "api": {
+            "sendOn": "${lessonIndex != null}",
+            "url": "http://localhost:8888/lesson/stuState/${lessonIndex}",
+            "method": "get",
+            "data":{
+              "stuId": "${id}",
+              "clazzId": "${params.id}"
+            }
+          },
+          "body": {
+            "type": "button-toolbar",
+            "visibleOn": "${stuState != 4 && stuState != 7}",
+            "name": "buttonList",
+            "buttons": [
+              {
+                "type": "button",
+                "label": "未到",
+                "name": "button1",
+                "active": true,
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "actionType": "ajax",
+                        "args": {
+                          "api": {
+                            "url":"http://localhost:8888/lesson/check/${id}",
+                            "method": "post",
+                            "data": {
+                              "stuState": 1,
+                              "clazzId": "${params.id}",
+                              "lessonIndex": "${lessonIndex}"
+                            }
+                          },
+                          "messages":{
+                            "success": "点到成功",
+                            "failed": "点到失败"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "button",
+                "label": "已到",
+                "active": true,
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "actionType": "ajax",
+                        "args": {
+                          "api": {
+                            "url":"http://localhost:8888/lesson/check/${id}",
+                            "method": "post",
+                            "data": {
+                              "stuState": 2,
+                              "clazzId": "${params.id}",
+                              "lessonIndex": "${lessonIndex}"
+                            }
+                          },
+                          "messages":{
+                            "success": "点到成功",
+                            "failed": "点到失败"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "button",
+                "active": true,
+                "label": "请假",
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "actionType": "ajax",
+                        "args": {
+                          "api": {
+                            "url":"http://localhost:8888/lesson/check/${id}",
+                            "method": "post",
+                            "data": {
+                              "stuState": 3,
+                              "clazzId": "${params.id}",
+                              "lessonIndex": "${lessonIndex}"
+                            }
+                          },
+                          "messages":{
+                            "success": "点到成功",
+                            "failed": "点到失败"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+
+        },
+        {
+          "type": "service",
+          "label": "学生本节课状态${lessonIndex}",
+          "name": "my_service",
+          "interval": "1000",
+          "target": "buttonList",
+          "silentPolling": true,
+          "api": {
+            "sendOn": "${lessonIndex != null}",
+            "url": "http://localhost:8888/lesson/stuState/${lessonIndex}",
+            "method": "get",
+            "data":{
+              "stuId": "${id}",
+              "clazzId": "${params.id}"
+            }
+          },
+          "body":
+          [
+            {
+              "type": "mapping",
+              "name": "stuState",
+              "map": {
+                "1": "未到",
+                "2": "已到",
+                "3": "请假",
+                "4": "补课",
+                "5": "调课",
+                "6": "调班",
+                "7": "停课",
+                "8": "退课"
+              }
+            }
+          ]
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "visibleOn": "${clazzIsFinish == 0}",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "补课",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "titile": "请填写补课信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/addition/${id}",
+                          "data": {
+                            "clazzId": "${params.id}",
+                            "lessonIndex": "${lessonIndex}",
+                            "additionDate": "${additionDate}",
+                            "additionTime": "${additionTime}",
+                            "empId": "${empId}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "type": "input-date",
+                            "label": "补课时间",
+                            "name": "additionDate",
+                            "format": "x"
+                          },
+                          {
+                            "label": "补课老师",
+                            "type": "select",
+                            "name": "empId",
+                            "source": "http://localhost:8888/clazz/empList"
+                          },
+                          {
+                            "type": "input-time",
+                            "name": "additionTime",
+                            "label": "持续时间",
+                            "inputFormat": "HH时mm分",
+                            "format": "x"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "调课",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "title": "请填写调课信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/changeLesson/${id}",
+                          "data": {
+                            "lessonIndexOut": "${lessonIndex}",
+                            "clazzIdOut": "${params.id}",
+                            "lessonIndexIn": "${lessonIndexIn}",
+                            "clazzIdIn": "${clazzIdIn}",
+                            "difPrice": "${difPrice}",
+                            "discountPrice": "${discountPrice}",
+                            "actuallyPrice": "${actuallyPrice}",
+                            "payDate": "${payDate}",
+                            "changeReason": "${changeReason}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "label": "调入班级",
+                            "type": "select",
+                            "name": "clazzIdIn",
+                            "source": "http://localhost:8888/lesson/clazzList/${params.id}"
+                          },
+                          {
+                            "label": "调入课次",
+                            "visibleOn": "${clazzIdIn != null}",
+                            "type": "select",
+                            "name": "lessonIndexIn",
+                            "source": "http://localhost:8888/lesson/indexList/${clazzIdIn}"
+                          },
+                          {
+                            "type": "input-text",
+                            "label": "调课理由",
+                            "name": "changeReason",
+                            "value": " "
+                          },
+                          {
+                            "type": "service",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/difPrice/1",
+                              "method": "get",
+                              "sendOn": "${clazzIdIn > 0}",
+                              "trackExpression": "${clazzIdIn}",
+                              "data": {
+                                "clazzIn": "${clazzIdIn}",
+                                "clazzOut": "${params.id}"
+                              }
+                            },
+                            "body":{
+                              "label": "需补交学费",
+                              "type": "static",
+                              "name": "difPrice"
+                            }
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "discountPrice",
+                            "value": 0,
+                            "label": "优惠金额",
+                            "prefix": "￥",
+                            "kilobitSeparator": true
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "actuallyPrice",
+                            "label": "实际补交学费",
+                            "value": "${difPrice - discountPrice}",
+                            "prefix": "￥",
+                            "kilobitSeparator": true
+                          },
+                          {
+                            "type": "input-date",
+                            "name": "payDate",
+                            "label": "补交日期",
+                            "format": "x"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "调班",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "title": "请填写调班信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "debug": true,
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/changeClazz/${id}",
+                          "data": {
+                            "lessonFromIndexOut": "${lessonIndex}",
+                            "clazzOut": "${params.id}",
+                            "lessonFromIndexIn": "${lessonFromIndexIn}",
+                            "clazzIn": "${clazzIdIn}",
+                            "difPrice": "${difPrice}",
+                            "discountPrice": "${discountPrice}",
+                            "actuallyPrice": "${actuallyPrice}",
+                            "payDate": "${payDate}",
+                            "changeReason": "${changeReason}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "label": "调入班级",
+                            "type": "select",
+                            "name": "clazzIdIn",
+                            "source": "http://localhost:8888/lesson/clazzList/${params.id}"
+                          },
+                          {
+                            "label": "起始课次(转入班级)",
+                            "visibleOn": "${clazzIdIn != null}",
+                            "type": "select",
+                            "name": "lessonFromIndexIn",
+                            "source": "http://localhost:8888/lesson/indexList/${clazzIdIn}"
+                          },
+                          {
+                            "type": "input-text",
+                            "label": "调班理由",
+                            "name": "changeReason",
+                            "value": ""
+                          },
+                          {
+                            "type": "service",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/difPrice/${clazzSum}",
+                              "method": "get",
+                              "sendOn": "${clazzIdIn > 0 && lessonFromIndexIn >= 0}",
+                              "trackExpression": "${lessonFromIndexIn}",
+                              "data": {
+                                "clazzIn": "${clazzIdIn}",
+                                "clazzOut": "${params.id}",
+                                "lessonIndex": "${lessonIndex}",
+                                "lessonFromIndexIn": "${lessonFromIndexIn}"
+                              }
+                            },
+                            "body":{
+                              "label": "需补交学费",
+                              "type": "static",
+                              "name": "difPrice"
+                            }
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "discountPrice",
+                            "value": 0,
+                            "label": "优惠金额",
+                            "prefix": "￥",
+                            "kilobitSeparator": true
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "actuallyPrice",
+                            "label": "实际补交学费",
+                            "value": "${difPrice - discountPrice}",
+                            "prefix": "￥",
+                            "kilobitSeparator": true
+                          },
+                          {
+                            "type": "input-date",
+                            "name": "payDate",
+                            "label": "补交日期",
+                            "format": "x"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+
+                },
+                {
+                  "type": "button",
+                  "label": "停课",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "title": "请填写停课信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "debug": true,
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/stopLesson/${id}",
+                          "data": {
+                            "lessonIndexFrom": "${lessonIndexFrom}",
+                            "lessonIndexTo": "${lessonIndexTo}",
+                            "stopReason": "${stopReason}",
+                            "remainPrice": "${remainPrice}",
+                            "clazzId": "${params.id}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "label": "起始课次",
+                            "type": "select",
+                            "name": "lessonIndexFrom",
+                            "source": "http://localhost:8888/lesson/indexList/${params.id}"
+                          },
+                          {
+                            "label": "结束课次（不包含本次）",
+                            "type": "select",
+                            "name": "lessonIndexTo",
+                            "source": "http://localhost:8888/lesson/indexList/${params.id}"
+                          },
+                          {
+                            "type": "tag",
+                            "label": "要求结束课次 > 开始课次",
+                            "displayMode": "normal",
+                            "color": "error",
+                            "visibleOn": "${lessonIndexTo <= lessonIndexFrom}"
+                          },
+                          {
+                            "type": "input-text",
+                            "label": "停课理由",
+                            "name": "stopReason",
+                            "value": ""
+                          },
+                          {
+                            "type": "service",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/getRemainPrice",
+                              "method": "get",
+                              "sendOn": "${lessonIndexTo >= 0}",
+                              "trackExpression": "${(lessonIndexFrom + 1) * lessonIndexTo}",
+                              "data": {
+                                "clazzId": "${params.id}",
+                                "lessonIndexFrom": "${lessonIndexFrom}",
+                                "lessonIndexTo": "${lessonIndexTo}",
+                                "stuId": "${id}"
+                              }
+                            },
+                            "body":{
+                              "label": "结转金额",
+                              "type": "static",
+                              "name": "remainPrice"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "退课",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "title": "请填写退课信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "debug": true,
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/quitLesson/${id}",
+                          "data": {
+                            "lessonIndexFrom": "${lessonIndexFrom}",
+                            "quitReason": "${quitReason}",
+                            "refundDate": "${refundDate}",
+                            "refundPrice": "${refundPrice}",
+                            "clazzId": "${params.id}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "label": "退课起始课次",
+                            "type": "select",
+                            "name": "lessonIndexFrom",
+                            "source": "http://localhost:8888/lesson/indexList/${params.id}"
+                          },
+                          {
+                            "type": "input-text",
+                            "label": "退课理由",
+                            "name": "quitReason",
+                            "value": ""
+                          },
+                          {
+                            "type": "input-date",
+                            "label": "退费日期",
+                            "name": "refundDate",
+                            "format": "x"
+                          },
+                          {
+                            "type": "service",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/getRefundPrice",
+                              "method": "get",
+                              "sendOn": "${lessonIndexFrom >= 0}",
+                              "trackExpression": "${lessonIndexFrom}",
+                              "data": {
+                                "clazzId": "${params.id}",
+                                "lessonIndexFrom": "${lessonIndexFrom}",
+                                "stuId": "${id}"
+                              }
+                            },
+                            "body":{
+                              "label": "应退金额",
+                              "type": "static",
+                              "name": "refundPriceShould",
+                              "prefix": "￥"
+                            }
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "refundPrice",
+                            "value": 0,
+                            "label": "实退金额",
+                            "kilobitSeparator": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "续费",
+                  "actionType": "drawer",
+                  "drawer": {
+                    "position": "right",
+                    "title": "请填写续费信息",
+                    "body": [
+                      {
+                        "type": "form",
+                        "data": {
+                          "options": [
+                            {
+                              "label": "小学部",
+                              "value": "1",
+                              "children": [
+                                {
+                                  "label": "幼儿大班",
+                                  "value": "1-1"
+                                },
+                                {
+                                  "label": "一年级",
+                                  "value": "1-2"
+                                },
+                                {
+                                  "label": "二年级",
+                                  "value": "1-3"
+                                },
+                                {
+                                  "label": "三年级",
+                                  "value": "1-4"
+                                },
+                                {
+                                  "label": "四年级",
+                                  "value": "1-5"
+                                },
+                                {
+                                  "label": "五年级",
+                                  "value": "1-6"
+                                },
+                                {
+                                  "label": "六年级",
+                                  "value": "1-7"
+                                },
+                                {
+                                  "label": "七年级",
+                                  "value": "1-8"
+                                }
+                              ]
+                            },
+                            {
+                              "label": "初中部",
+                              "value": "2",
+                              "children": [
+                                {
+                                  "label": "六年级",
+                                  "value": "2-7"
+                                },
+                                {
+                                  "label": "七年级",
+                                  "value": "2-8"
+                                },
+                                {
+                                  "label": "八年级",
+                                  "value": "2-9"
+                                },
+                                {
+                                  "label": "九年级",
+                                  "value": "2-10"
+                                }
+                              ]
+                            },
+                            {
+                              "label": "高中部",
+                              "value": "3",
+                              "children": [
+                                {
+                                  "label": "九年级",
+                                  "value": "3-10"
+                                },
+                                {
+                                  "label": "高一",
+                                  "value": "3-11"
+                                },{
+                                  "label": "高二",
+                                  "value": "3-12"
+                                },
+                                {
+                                  "label": "高三",
+                                  "value": "3-13"
+                                }
+                              ]
+                            },
+                            {
+                              "label": "素养部",
+                              "value": "4",
+                              "children": [
+                                {
+                                  "label": "一年级",
+                                  "value": "4-2"
+                                },
+                                {
+                                  "label": "二年级",
+                                  "value": "4-3"
+                                },
+                                {
+                                  "label": "三年级",
+                                  "value": "4-4"
+                                },
+                                {
+                                  "label": "四年级",
+                                  "value": "4-5"
+                                },
+                                {
+                                  "label": "五年级",
+                                  "value": "4-6"
+                                },
+                                {
+                                  "label": "六年级",
+                                  "value": "4-7"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/continueLesson/${id}",
+                          "data": {
+                            "paymentDate": "${paymentDate}",
+                            "paymentDiscountAmount": "${paymentDiscountAmount}",
+                            "paymentActuallyAmount": "${paymentActuallyAmount}",
+                            "nextClazzId": "${nextClazzId}",
+                            "clazzId": "${params.id}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "type": "nested-select",
+                            "name": "depAndGrade",
+                            "label": "选择部门和年级",
+                            "source": "${options}",
+                            "onlyLeaf": true
+                          },
+                          {
+                            "label": "选择班级",
+                            "type": "select",
+                            "name": "nextClazzId",
+                            "visibleOn": "${depAndGrade != null}",
+                            "source": {
+                              "url": "http://localhost:8888/clazz/clazzList",
+                              "method": "get",
+                              "trackExpression": "${depAndGrade}",
+                              "data": {
+                                "depAndGrade": "${depAndGrade}"
+                              }
+                            }
+                          },
+                          {
+                            "type": "input-date",
+                            "label": "续费日期",
+                            "name": "paymentDate",
+                            "format": "x"
+                          },
+                          {
+                            "type": "service",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/getNextPrice",
+                              "method": "get",
+                              "sendOn": "${nextClazzId >= 0}",
+                              "trackExpression": "${nextClazzId}",
+                              "data": {
+                                "nextClazzId": "${nextClazzId}"
+                              }
+                            },
+                            "body":{
+                              "label": "课程总价",
+                              "type": "static",
+                              "name": "totalPrice",
+                              "prefix": "￥"
+                            }
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "paymentDiscountAmount",
+                            "value": 0,
+                            "label": "优惠金额",
+                            "kilobitSeparator": true
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "paymentActuallyAmount",
+                            "value": "${totalPrice - paymentDiscountAmount}",
+                            "label": "实付金额",
+                            "kilobitSeparator": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

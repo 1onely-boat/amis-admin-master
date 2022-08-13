@@ -1,0 +1,162 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/course/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": {
+        "method": "get",
+        "url": "http://localhost:8888/course/${params.id}"
+      },
+      "api": {
+        "mehtod": "post",
+        "url": "http://localhost:8888/course/${params.id}/put",
+        "data": {
+          "&": "$$",
+          "_from": "browser"
+        }
+      },
+      "redirect": "/course/list",
+      "controls": [
+        {
+          "label": "所属部门",
+          "type": "select",
+          "name": "courseDep",
+          "options": [
+            {
+              "label": "小学部",
+              "value": 1
+            },
+            {
+              "label": "初中部",
+              "value": 2
+            },
+            {
+              "label": "高中部",
+              "value": 3
+            },
+            {
+              "label": "素养部",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "课程年级",
+          "type": "select",
+          "name": "courseGrade",
+          "required": true,
+          "options": [
+            {
+              "label": "大班",
+              "value": 1,
+              "visibleOn": "${courseDep == 1}"
+            },
+            {
+              "label": "一年级",
+              "value": 2,
+              "visibleOn": "${courseDep == 1 || courseDep == 4}"
+            },
+            {
+              "label": "二年级",
+              "value": 3,
+              "visibleOn": "${courseDep == 1 || courseDep == 4}"
+            },
+            {
+              "label": "三年级",
+              "value": 4,
+              "visibleOn": "${courseDep == 1 || courseDep == 4}"
+            },
+            {
+              "label": "四年级",
+              "value": 5,
+              "visibleOn": "${courseDep == 1 || courseDep == 4}"
+            },
+            {
+              "label": "五年级",
+              "value": 6,
+              "visibleOn": "${courseDep == 1 || courseDep == 4}"
+            },
+            {
+              "label": "六年级",
+              "value": 7,
+              "visibleOn": "${courseDep == 1 || courseDep == 2 || courseDep == 4}"
+            },
+            {
+              "label": "七年级",
+              "value": 8,
+              "visibleOn": "${courseDep == 1 || courseDep == 2}"
+            },
+            {
+              "label": "八年级",
+              "value": 9,
+              "visibleOn": "${courseDep == 2}"
+            },
+            {
+              "label": "九年级",
+              "value": 10,
+              "visibleOn": "${courseDep == 2 || courseDep == 3}"
+            },
+            {
+              "label": "高一",
+              "value": 11,
+              "visibleOn": "${courseDep == 3}"
+            },
+            {
+              "label": "高二",
+              "value": 12,
+              "visibleOn": "${courseDep == 3}"
+            },
+            {
+              "label": "高三",
+              "value": 13,
+              "visibleOn": "${courseDep == 3}"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "学科选择",
+          "type": "select",
+          "name": "subjectId",
+          "required": true,
+          "source": "http://localhost:8888/course/subjectList/${courseDep}",
+          "visibleOn": "${courseDep > 0}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "courseSubName",
+          "label": "班型设定（创新班、强基班等）：",
+          "value": ""
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-number",
+          "name": "coursePrice",
+          "label": "课程单次价格(元)：",
+          "precision": 2,
+          "required": true
+        }
+      ]
+    }
+  ]
+}
