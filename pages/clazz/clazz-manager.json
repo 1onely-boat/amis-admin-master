@@ -1,6 +1,10 @@
 {
   "type": "page",
   "title": "${params.id}${clazzName}",
+  "id": "my_page",
+  "data": {
+    "sendRequest": 1
+  },
   "remark": null,
   "name": "page-demo",
   "initApi": "http://localhost:8888/clazz/${params.id}",
@@ -19,7 +23,23 @@
           }
         ],
         "submitText": "确定"
+      },
+    {
+      "type": "button",
+      "label": "完成点到",
+      "className": "mb-2",
+      "level": "primary",
+      "onEvent": {
+        "click": {
+          "actions": [
+            {
+              "actionType": "reload",
+              "componentId": "crud_reload"
+            }
+          ]
+        }
       }
+    }
   ],
   "body": [
 
@@ -72,6 +92,7 @@
       "type": "crud",
       "name": "sample",
       "target": "my_service",
+      "id": "crud_reload",
       "syncLocation": false,
       "api": {
         "url": "http://localhost:8888/stu/lessonStu",
@@ -112,10 +133,7 @@
           "type": "service",
           "visibleOn": "${clazzIsFinish == 0}",
           "label": "点到（处于补课、停课状态无法点到）",
-          "interval": "30000",
-          "silentPolling": true,
           "api": {
-            "sendOn": "${lessonIndex != null}",
             "url": "http://localhost:8888/lesson/stuState/${lessonIndex}",
             "method": "get",
             "data":{
@@ -221,38 +239,19 @@
 
         },
         {
-          "type": "service",
-          "label": "学生本节课状态${lessonIndex}",
-          "name": "my_service",
-          "interval": "30000",
-          "target": "buttonList",
-          "silentPolling": true,
-          "api": {
-            "sendOn": "${lessonIndex != null}",
-            "url": "http://localhost:8888/lesson/stuState/${lessonIndex}",
-            "method": "get",
-            "data":{
-              "stuId": "${id}",
-              "clazzId": "${params.id}"
-            }
-          },
-          "body":
-          [
-            {
-              "type": "mapping",
-              "name": "stuState",
-              "map": {
-                "1": "未到",
-                "2": "已到",
-                "3": "请假",
-                "4": "补课",
-                "5": "调课",
-                "6": "调班",
-                "7": "停课",
-                "8": "退课"
-              }
-            }
-          ]
+          "type": "mapping",
+          "name": "stuState",
+          "label": "测试状态",
+          "map": {
+            "1": "未到",
+            "2": "已到",
+            "3": "请假",
+            "4": "补课",
+            "5": "调课",
+            "6": "调班",
+            "7": "停课",
+            "8": "退课"
+          }
         },
         {
           "type": "operation",
