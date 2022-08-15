@@ -160,7 +160,8 @@
           "name": "depAndGrade",
           "label": "选择部门和年级",
           "source": "${options}",
-          "onlyLeaf": true
+          "onlyLeaf": true,
+          "required": true
         },
         {
           "type": "divider"
@@ -169,6 +170,7 @@
           "label": "选择班级",
           "type": "select",
           "name": "clazzId",
+          "required": true,
           "visibleOn": "${depAndGrade != null}",
           "source": {
             "url": "http://localhost:8888/clazz/clazzList",
@@ -179,9 +181,7 @@
             }
           }
         },
-        {
-          "type": "divider"
-        },
+
         {
           "type": "service",
           "api": {
@@ -191,13 +191,12 @@
           "body": [
             {
               "type": "static",
-              "name": "stuName",
+              "name": "clazzSum",
               "label": "课次",
-              "value": "${clazzSum}"
+              "value": "${clazzSum}",
+              "visible": false
             },
-            {
-              "type": "divider"
-            },
+
             {
               "type": "service",
               "api": {

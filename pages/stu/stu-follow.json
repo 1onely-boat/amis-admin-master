@@ -7,6 +7,26 @@
     {
       "type": "crud",
       "name": "sample",
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "controls": [
+          {
+            "type": "text",
+            "name": "keywords",
+            "placeholder": "通过关键字搜索",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "className": "btn-success"
+            },
+            "clearable": true
+          }
+        ],
+        "className": "m-b-sm"
+      },
       "api": "http://localhost:8888/stu/list",
       "columns": [
         {

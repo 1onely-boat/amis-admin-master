@@ -112,7 +112,7 @@
           "type": "service",
           "visibleOn": "${clazzIsFinish == 0}",
           "label": "点到（处于补课、停课状态无法点到）",
-          "interval": "1000",
+          "interval": "30000",
           "silentPolling": true,
           "api": {
             "sendOn": "${lessonIndex != null}",
@@ -224,7 +224,7 @@
           "type": "service",
           "label": "学生本节课状态${lessonIndex}",
           "name": "my_service",
-          "interval": "1000",
+          "interval": "30000",
           "target": "buttonList",
           "silentPolling": true,
           "api": {
