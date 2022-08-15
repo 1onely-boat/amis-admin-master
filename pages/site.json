@@ -121,7 +121,7 @@
               },
               {
                 "label": "查看课消详细信息",
-                "url": "/data/:id",
+                "url": "/data/:id/:year/:season",
                 "icon": "fa fa-plus",
                 "schemaApi": "get:/pages/data-center/teacher-lesson-consume/view.json"
               },
@@ -133,7 +133,7 @@
               },
               {
                 "label": "查看结课学生信息",
-                "url": "/data/teacherContinue/:id",
+                "url": "/data/teacherContinue/:id/:dep/:year/:season",
                 "icon": "fa fa-plus",
                 "schemaApi": "get:/pages/data-center/teacher-continue-clazz/view2.json"
               },

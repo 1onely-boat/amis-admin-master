@@ -17,6 +17,13 @@
             "alignItems": "center",
             "items": [
               {
+                "type": "input-year",
+                "name": "year",
+                "label": "年份选择",
+                "format": "x",
+                "value": "1640966400000"
+              },
+              {
                 "label": "季度",
                 "type": "select",
                 "name": "season",
@@ -120,7 +127,7 @@
                   "label": "查看明细",
                   "level": "primary",
                   "actionType": "link",
-                  "link": "/data/${empId}"
+                  "link": "/data/${empId}/${year}/${season}"
                 }
               ]
             }

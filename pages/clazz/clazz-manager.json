@@ -241,7 +241,7 @@
         {
           "type": "mapping",
           "name": "stuState",
-          "label": "测试状态",
+          "label": "学生本节课状态",
           "map": {
             "1": "未到",
             "2": "已到",
@@ -522,7 +522,7 @@
                             "source": "http://localhost:8888/lesson/indexList/${params.id}"
                           },
                           {
-                            "label": "结束课次（不包含本次）",
+                            "label": "结束课次（包含本次）",
                             "type": "select",
                             "name": "lessonIndexTo",
                             "source": "http://localhost:8888/lesson/indexList/${params.id}"
@@ -550,7 +550,7 @@
                               "data": {
                                 "clazzId": "${params.id}",
                                 "lessonIndexFrom": "${lessonIndexFrom}",
-                                "lessonIndexTo": "${lessonIndexTo}",
+                                "lessonIndexTo": "${lessonIndexTo + 1}",
                                 "stuId": "${id}"
                               }
                             },

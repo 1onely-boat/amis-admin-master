@@ -7,7 +7,7 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/data-center/stuConsumeList/${params.id}?page=${page}&perPage=${perPage}",
+      "api": "http://localhost:8888/data-center/stuConsumeList/${params.id}/${params.year}/${params.season}?page=${page}&perPage=${perPage}",
       "columns": [
         {
           "name": "stuId",
