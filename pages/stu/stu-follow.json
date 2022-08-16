@@ -37,8 +37,7 @@
         },
         {
           "name": "stuName",
-          "label": "学生姓名",
-          "width": 20
+          "label": "学生姓名"
         },
         {
           "name": "stuFollowState",

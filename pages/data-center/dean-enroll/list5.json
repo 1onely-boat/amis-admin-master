@@ -20,7 +20,7 @@
                 "type": "input-year",
                 "name": "clazzYear",
                 "label": "年份：",
-                "value": 1690819200000,
+                "value": 1640966400000,
                 "format": "x"
               },
               {
@@ -87,11 +87,21 @@
           "sortable": true
         },
         {
+          "type": "mapping",
           "name": "chargeGrade",
-          "label": "负责年段",
-          "width": 20,
-          "sortable": true
+          "label": "年级段",
+          "map": {
+            "1": "大班",
+            "2": "一年级",
+            "3": "二年级",
+            "4": "三年级",
+            "5": "四年级",
+            "6": "五年级",
+            "7": "六年级",
+            "8": "七年级"
+          }
         },
+
         {
           "name": "lastSeasonNum",
           "label": "上期在读科目数",

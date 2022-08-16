@@ -215,7 +215,6 @@
         {
           "name": "courseGrade",
           "label": "课程年级",
-          "width": 20,
           "sortable": true
         },
         {
@@ -239,7 +238,6 @@
         {
           "type": "operation",
           "label": "操作",
-          "width": "",
           "buttons": [
             {
               "type": "button-group",

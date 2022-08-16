@@ -169,7 +169,7 @@
               },
               {
                 "label": "年级续报明细",
-                "url": "/data/deanContinue/:grade",
+                "url": "/data/gradeContinue/:grade/:dep/:year/:season",
                 "icon": "fa fa-list",
                 "schemaApi": "get:/pages/data-center/dean-continue-clazz/view6.json"
               }

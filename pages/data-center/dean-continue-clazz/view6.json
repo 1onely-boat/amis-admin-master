@@ -7,42 +7,40 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/data-center/gradeContinue/${params.grade}?page=${page}&perPage=${perPage}",
+      "api": "http://localhost:8888/data-center/gradeContinue/${params.grade}/${params.dep}/${params.year}/${params.season}?page=${page}&perPage=${perPage}",
       "columns": [
         {
           "name": "stuName",
-          "label": "学生姓名",
-          "width": 20
+          "label": "学生姓名"
         },
         {
           "name": "gradeName",
           "label": "年级",
-          "sortable": true,
-          "width": 20
+          "sortable": true
         },
         {
           "name": "clazzName",
           "label": "班级",
-          "sortable": true,
-          "width": 20
+          "sortable": true
         },
         {
           "name": "clazzRangeTime",
           "label": "上课时间",
-          "sortable": true,
-          "width": 20
+          "sortable": true
         },
         {
-          "name": "stuState",
+          "type": "mapping",
           "label": "状态",
-          "width": 20,
-          "sortable": true
+          "name": "stuState",
+          "map": {
+            "1": "在读",
+            "2": "停课"
+          }
         },
 
         {
           "name": "nextClazzName",
           "label": "下学期报班",
-          "width": 20,
           "sortable": true
         }
       ],

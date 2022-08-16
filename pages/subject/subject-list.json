@@ -77,7 +77,6 @@
         {
           "name": "subjectName",
           "label": "学科名",
-          "width": 20,
           "sortable": true
         },
         {
