@@ -89,7 +89,6 @@
         {
           "name": "clazzSum",
           "label": "带班数量",
-          "width": 20,
           "sortable": true
         },
         {

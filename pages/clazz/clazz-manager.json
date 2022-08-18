@@ -122,8 +122,7 @@
         },
         {
           "name": "stuName",
-          "label": "学生姓名",
-          "width": 20
+          "label": "学生姓名"
         },
         {
           "name": "stuParentPhone",
@@ -133,14 +132,6 @@
           "type": "service",
           "visibleOn": "${clazzIsFinish == 0}",
           "label": "点到（处于补课、停课状态无法点到）",
-          "api": {
-            "url": "http://localhost:8888/lesson/stuState/${lessonIndex}",
-            "method": "get",
-            "data":{
-              "stuId": "${id}",
-              "clazzId": "${params.id}"
-            }
-          },
           "body": {
             "type": "button-toolbar",
             "visibleOn": "${stuState != 4 && stuState != 7}",

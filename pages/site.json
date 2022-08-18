@@ -6,7 +6,7 @@
       {
         "label": "Home",
         "url": "/",
-        "redirect": "/index/1"
+        "redirect": "/emp"
       },
       {
         "label": "分组1",

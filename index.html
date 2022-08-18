@@ -18,10 +18,10 @@
       rel="stylesheet"
       href="https://unpkg.com/amis@beta/sdk/helper.css"
     />
+<!--    <script src="./sdk/sdk.js"></script>-->
     <script src="https://unpkg.com/amis@beta/sdk/sdk.js"></script>
     <script src="https://unpkg.com/vue@2"></script>
-    <script src="https://unpkg.com/history@4.10.1
-/umd/history.js"></script>
+    <script src="https://unpkg.com/history@4.10.1/umd/history.js"></script>
     <style>
       html,
       body,
@@ -52,6 +52,7 @@
           logo: '/public/logo.png',
           header: {
             type: 'tpl',
+            body: '${perm}',
             inline: false,
             className: 'w-full',
             tpl: '<div class="flex justify-between"><div>顶部区域左侧</div><div>顶部区域右侧</div></div>'
@@ -128,12 +129,39 @@
           '#root',
           app,
           {
-            location: history.location
+            location: history.location,
+            data:{
+              // perm: 'myPerm',
+              token: sessionStorage.getItem("token"),
+              perm: sessionStorage
+            }
           },
           {
             // watchRouteChange: fn => {
             //   return history.listen(fn);
             // },
+            requestAdaptor(api){
+              if (sessionStorage.getItem("token") != null)
+                api.headers["Authorization"] = sessionStorage.getItem("token")
+              else
+                api.headers["Authorization"] = "fakeToken"
+              // api.url = "http://localhost:3000" + api.url;后续可以通过这行代码设定url前缀
+              console.log("全局请求适配器", api)
+              // api.data = {
+              //   perm: 1
+              // }
+              return api
+            },
+            responseAdaptor(api,payload){
+              console.log("payload",payload)
+              if (payload.status === 407){
+                sessionStorage.clear();
+                console.log("重定向到登录")
+                setTimeout(3000)
+                location.href = "/login"
+              }
+              return payload
+            },
             updateLocation: (location, replace) => {
               location = normalizeLink(location);
               if (location === 'goBack') {
