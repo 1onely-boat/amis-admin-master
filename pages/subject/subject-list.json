@@ -2,6 +2,7 @@
   "type": "page",
   "title": "学科列表",
   "remark": null,
+  "visibleOn": "sessionStorage.getItem(\"学科管理\") == 1",
   "name": "page-demo",
   "toolbar": [
     {
@@ -60,7 +61,12 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/subject/list",
+      "api": {
+        "url": "http://localhost:8888/subject/list",
+        "data":{
+          "dep": "${SessionDep}"
+        }
+      },
       "filter": {
         "title": "",
         "mode": "inline",

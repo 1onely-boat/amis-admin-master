@@ -19,7 +19,7 @@
         "url": "http://localhost:8888/clazz/${params.id}"
       },
       "api": {
-        "mehtod": "post",
+        "method": "post",
         "url": "http://localhost:8888/clazz/${params.id}/put",
         "data": {
           "&": "$$",

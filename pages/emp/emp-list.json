@@ -1,6 +1,7 @@
 {
   "type": "page",
   "title": "员工列表",
+  "visibleOn": "sessionStorage.getItem(\"员工管理\") == 1",
   "remark": null,
   "name": "page-demo",
   "toolbar": [
@@ -25,6 +26,7 @@
       "label": "角色权限管理（开发用）",
       "actionType": "drawer",
       "drawer": {
+        "size": "xl",
         "position": "top",
         "title": "选择角色和权限",
         "body":[
@@ -38,6 +40,7 @@
               {
                 "label": "角色",
                 "type": "select",
+                "required": true,
                 "name": "roleId",
                 "options": [
                   {
@@ -85,15 +88,22 @@
                     "type": "static-json",
                     "name": "json",
                     "label": "已拥有权限",
+                    "visibleOn": "${options != null}",
                     "value": "${options}"
                   }
                 ]
               },
               {
-                "label": "添加权限",
-                "type": "select",
-                "multiple": true,
+                "type": "input-tree",
                 "name": "permissionIds",
+                "required": true,
+                "label": "请位角色分配权限",
+                "autoCheckChildren": true,
+                "showOutline": true,
+                "cascade": true,
+                "initiallyOpen": false,
+                "multiple": true,
+                "withChildren": true,
                 "source": {
                   "url": "http://localhost:8888/emp/getAllPerms"
                 }
@@ -307,33 +317,15 @@
     {
       "type": "crud",
       "name": "sample",
+      "autoGenerateFilter": true,
       "api": "http://localhost:8888/emp/list",
-      "filter": {
-        "title": "",
-        "mode": "inline",
-        "wrapWithPanel": false,
-        "submitText": "",
-        "controls": [
-          {
-            "type": "text",
-            "name": "keywords",
-            "placeholder": "通过关键字搜索",
-            "addOn": {
-              "label": "搜索",
-              "type": "submit",
-              "className": "btn-success"
-            },
-            "clearable": true
-          }
-        ],
-        "className": "m-b-sm"
-      },
       "bulkActions": [
         {
           "label": "批量修改",
           "type": "button",
           "actionType": "dialog",
           "level": "primary",
+          "visible": false,
           "dialog": {
             "title": "批量编辑",
             "name": "sample-bulk-edit",
@@ -370,6 +362,9 @@
         {
           "name": "empName",
           "label": "员工姓名",
+          "searchable": {
+            "value": ""
+          },
           "sortable": true
         },
         {
@@ -381,6 +376,46 @@
           "name": "empPhone",
           "label": "员工手机号",
           "sortable": true
+        },
+        {
+          "name": "empDep",
+          "label": "所属部门",
+          "type": "mapping",
+          "map":{
+            "1": "小学部",
+            "2": "初中部",
+            "3": "高中部",
+            "4": "素养部"
+          },
+          "searchable": {
+            "label": "所属部门",
+            "type": "select",
+            "name": "empDep",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "小学部",
+                "value": 1
+              },
+              {
+                "label": "初中部",
+                "value": 2
+              },
+              {
+                "label": "高中部",
+                "value": 3
+              },
+              {
+                "label": "素养部",
+                "value": 4
+              }
+            ]
+          }
+
         },
         {
           "label": "是否在职",

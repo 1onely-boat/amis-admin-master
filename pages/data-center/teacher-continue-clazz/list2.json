@@ -2,12 +2,24 @@
   "type": "page",
   "title": "教师续班率统计",
   "remark": null,
+  "visibleOn": "sessionStorage.getItem(\"教师续班统计\") == 1",
   "name": "page-demo",
   "body": [
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/data-center/list2",
+      "api": {
+        "url": "http://localhost:8888/data-center/list2",
+        "sendOn": "${dep != null}",
+        "data":{
+          "page": "${page}",
+          "perPage": "${perPage}",
+          "sessionDep": "${SessionDep}",
+          "season": "${season}",
+          "clazzYear": "${clazzYear}",
+          "dep": "${dep}"
+        }
+      },
       "filter": {
         "title": "请选择开课年、季度、部门",
         "body": [
@@ -51,7 +63,6 @@
                 "label": "部门",
                 "type": "select",
                 "name": "dep",
-                "value": 1,
                 "options": [
                   {
                     "label": "小学部",

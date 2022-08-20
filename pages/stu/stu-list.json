@@ -1,6 +1,7 @@
 {
   "type": "page",
   "title": "学生列表",
+  "visibleOn": "sessionStorage.getItem(\"学生管理\") == 1",
   "remark": null,
   "name": "page-demo",
   "toolbar": [
@@ -153,49 +154,38 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/stu/list",
-      "filter": {
-        "title": "",
-        "mode": "inline",
-        "wrapWithPanel": false,
-        "submitText": "",
-        "controls": [
-          {
-            "type": "text",
-            "name": "keywords",
-            "placeholder": "通过关键字搜索",
-            "addOn": {
-              "label": "搜索",
-              "type": "submit",
-              "className": "btn-success"
-            },
-            "clearable": true
-          }
-        ],
-        "className": "m-b-sm"
+      "autoGenerateFilter": true,
+      "api": {
+        "url": "http://localhost:8888/stu/list",
+        "data":{
+          "page": "${page}",
+          "perPage": "${perPage}",
+          "dep": "${SessionDep}",
+          "grade": "${SessionGrade}",
+          "searchStuName": "${searchStuName}",
+          "searchDep": "${searchDep}",
+          "searchGrade": "${searchGrade}",
+          "searchState": "${searchState}",
+          "searchPhone": "${searchPhone}",
+          "searchSubject": "${searchSubject}"
+        }
       },
-      "bulkActions": [
+      "headerToolbar": [
         {
-          "label": "批量修改",
-          "type": "button",
-          "actionType": "dialog",
-          "level": "primary",
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample/bulkUpdate2/",
-              "controls": [
-                {
-                  "type": "text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
+          "type": "export-excel",
+          "label": "导出所有学生信息",
+          "filename": "学生列表",
+          "api": {
+            "url": "http://localhost:8888/stu/export",
+            "data":{
+              "dep": "${SessionDep}",
+              "grade": "${SessionGrade}"
             }
           }
         },
+        "bulkActions"
+      ],
+      "bulkActions": [
         {
           "label": "批量删除",
           "type": "button",
@@ -215,7 +205,12 @@
         },
         {
           "name": "stuName",
-          "label": "学生姓名"
+          "label": "学生姓名",
+          "searchable": {
+            "label": "姓名",
+            "name": "searchStuName",
+            "value": ""
+          }
         },
         {
           "name": "stuDep",
@@ -226,6 +221,35 @@
             "2": "初中部",
             "3": "高中部",
             "4": "素养部"
+          },
+          "searchable": {
+            "label": "所属部门",
+            "type": "select",
+            "visibleOn": "${SessionDep == null}",
+            "name": "searchDep",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "小学部",
+                "value": 1
+              },
+              {
+                "label": "初中部",
+                "value": 2
+              },
+              {
+                "label": "高中部",
+                "value": 3
+              },
+              {
+                "label": "素养部",
+                "value": 4
+              }
+            ]
           }
         },
         {
@@ -246,6 +270,84 @@
             "11": "高一",
             "12": "高二",
             "13": "高三"
+          },
+          "searchable": {
+            "label": "课程年级",
+            "type": "select",
+            "name": "searchGrade",
+            "visibleOn": "${SessionGrade == null}",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "大班",
+                "value": 1,
+                "visibleOn": "${searchDep == 1 || searchDep == ''}"
+              },
+              {
+                "label": "一年级",
+                "value": 2,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "二年级",
+                "value": 3,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "三年级",
+                "value": 4,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "四年级",
+                "value": 5,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "五年级",
+                "value": 6,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "六年级",
+                "value": 7,
+                "visibleOn": "${searchDep == 1 || searchDep == 2 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "七年级",
+                "value": 8,
+                "visibleOn": "${searchDep == 1 || searchDep == 2 || searchDep == ''}"
+              },
+              {
+                "label": "八年级",
+                "value": 9,
+                "visibleOn": "${searchDep == 2 || searchDep == ''}"
+              },
+              {
+                "label": "九年级",
+                "value": 10,
+                "visibleOn": "${searchDep == 2 || searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高一",
+                "value": 11,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高二",
+                "value": 12,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高三",
+                "value": 13,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              }
+            ]
           }
         },
         {
@@ -257,11 +359,47 @@
             "1": "在读",
             "2": "退费",
             "3": "停课"
+          },
+          "searchable": {
+            "label": "学生状态",
+            "type": "select",
+            "name": "searchState",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "未报名",
+                "value": 0
+              },
+              {
+                "label": "在读",
+                "value": 1
+              },
+              {
+                "label": "退课",
+                "value": 2
+              },
+              {
+                "label": "停课",
+                "value": 3
+              }
+            ]
           }
         },
         {
           "name": "subjectName",
-          "label": "意向科目"
+          "label": "意向科目",
+          "searchable": {
+            "label": "意向科目",
+            "type": "select",
+            "visibleOn": "${searchDep != ''}",
+            "name": "searchSubject",
+            "value": "",
+            "source": "http://localhost:8888/course/subjectList/${searchDep}"
+          }
         },
         {
           "name": "stuSchool",
@@ -269,7 +407,12 @@
         },
         {
           "name": "stuParentPhone",
-          "label": "家长手机号"
+          "label": "家长手机号",
+          "searchable": {
+            "label": "手机号",
+            "name": "searchPhone",
+            "value": ""
+          }
         },
         {
           "type": "operation",

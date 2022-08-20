@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "${params.id}${clazzName}",
+  "title": "${clazzName}",
   "id": "my_page",
   "data": {
     "sendRequest": 1
@@ -103,6 +103,18 @@
           "lessonIndex": "${lessonIndex}"
         }
       },
+      "headerToolbar": [
+        {
+          "type": "export-excel",
+          "label": "导出点名册",
+          "filename": "${clazzName} 点名册",
+          "columns": [
+            "stuName",
+            "stuParentPhone",
+            "stuState"
+          ]
+        }
+      ],
       "filter": {
         "title": "",
         "mode": "inline",

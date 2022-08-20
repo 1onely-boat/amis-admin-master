@@ -2,32 +2,39 @@
   "type": "page",
   "title": "学生跟进情况",
   "remark": null,
+  "visibleOn": "sessionStorage.getItem(\"跟进管理\") == 1",
   "name": "page-demo",
   "body": [
     {
       "type": "crud",
       "name": "sample",
-      "filter": {
-        "title": "",
-        "mode": "inline",
-        "wrapWithPanel": false,
-        "submitText": "",
-        "controls": [
-          {
-            "type": "text",
-            "name": "keywords",
-            "placeholder": "通过关键字搜索",
-            "addOn": {
-              "label": "搜索",
-              "type": "submit",
-              "className": "btn-success"
-            },
-            "clearable": true
+      "autoGenerateFilter": true,
+      "headerToolbar": [
+        "bulkActions",
+        {
+          "type": "export-excel",
+          "label": "导出学生跟进信息",
+          "filename": "学生跟进信息",
+          "api": {
+            "url": "http://localhost:8888/stu/export",
+            "data":{
+              "dep": "${SessionDep}",
+              "grade": "${SessionGrade}"
+            }
           }
-        ],
-        "className": "m-b-sm"
+        }
+      ],
+      "api": {
+        "url": "http://localhost:8888/stu/list",
+        "data":{
+          "page": "${page}",
+          "perPage": "${perPage}",
+          "dep": "${SessionDep}",
+          "grade": "${SessionGrade}",
+          "searchFollowState": "${searchFollowState}",
+          "searchStuName": "${searchStuName}"
+        }
       },
-      "api": "http://localhost:8888/stu/list",
       "columns": [
         {
           "name": "id",
@@ -37,7 +44,12 @@
         },
         {
           "name": "stuName",
-          "label": "学生姓名"
+          "label": "学生姓名",
+          "searchable": {
+            "name": "searchStuName",
+            "label": "姓名",
+            "value": ""
+          }
         },
         {
           "name": "stuFollowState",
@@ -51,7 +63,48 @@
             "5": "已通知",
             "6": "未交费",
             "7": "已转化"
+          },
+          "searchable": {
+            "label": "跟进状态",
+            "type": "select",
+            "name": "searchFollowState",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "未约",
+                "value": 1
+              },
+              {
+                "label": "未测",
+                "value": 2
+              },
+              {
+                "label": "未录取",
+                "value": 3
+              },
+              {
+                "label": "未通知",
+                "value": 4
+              },
+              {
+                "label": "已通知",
+                "value": 5
+              },
+              {
+                "label": "未交费",
+                "value": 6
+              },
+              {
+                "label": "已转化",
+                "value": 7
+              }
+            ]
           }
+
         },
         {
           "name": "stuFollowPeople",

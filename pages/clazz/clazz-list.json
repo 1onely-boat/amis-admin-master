@@ -2,6 +2,7 @@
   "type": "page",
   "title": "班级列表",
   "remark": null,
+  "visibleOn": "sessionStorage.getItem(\"班级管理\") == 1",
   "name": "page-demo",
   "toolbar": [
     {
@@ -163,49 +164,24 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "http://localhost:8888/clazz/list",
-      "filter": {
-        "title": "",
-        "mode": "inline",
-        "wrapWithPanel": false,
-        "submitText": "",
-        "controls": [
-          {
-            "type": "text",
-            "name": "keywords",
-            "placeholder": "通过课程id搜索",
-            "addOn": {
-              "label": "搜索",
-              "type": "submit",
-              "className": "btn-success"
-            },
-            "clearable": true
-          }
-        ],
-        "className": "m-b-sm"
+      "autoGenerateFilter": true,
+      "api": {
+        "url": "http://localhost:8888/clazz/list",
+        "data":{
+          "page": "${page}",
+          "perPage": "${perPage}",
+          "dep": "${SessionDep}",
+          "grade": "${SessionGrade}",
+          "sessionEmpId": "${SessionEmpId}",
+          "searchDep": "${searchDep}",
+          "searchGrade": "${searchGrade}",
+          "searchEmpName": "${searchEmpName}",
+          "searchYear": "${searchYear}",
+          "searchSeason": "${searchSeason}",
+          "searchClazzName": "${searchClazzName}"
+        }
       },
       "bulkActions": [
-        {
-          "label": "批量修改",
-          "type": "button",
-          "actionType": "dialog",
-          "level": "primary",
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample/bulkUpdate2/",
-              "controls": [
-                {
-                  "type": "text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
-            }
-          }
-        },
         {
           "label": "批量删除",
           "type": "button",
@@ -224,27 +200,179 @@
         },
         {
           "name": "clazzName",
-          "label": "班级名"
+          "label": "班级名",
+          "searchable": {
+            "label": "班级名",
+            "value": "",
+            "name": "searchClazzName"
+          }
         },
         {
           "name": "clazzDep",
-          "label": "部门"
+          "label": "部门",
+          "searchable": {
+            "label": "所属部门",
+            "type": "select",
+            "visibleOn": "${SessionDep == null}",
+            "name": "searchDep",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "小学部",
+                "value": 1
+              },
+              {
+                "label": "初中部",
+                "value": 2
+              },
+              {
+                "label": "高中部",
+                "value": 3
+              },
+              {
+                "label": "素养部",
+                "value": 4
+              }
+            ]
+          }
         },
         {
           "name": "grade",
-          "label": "年级"
+          "label": "年级",
+          "searchable": {
+            "label": "课程年级",
+            "type": "select",
+            "name": "searchGrade",
+            "visibleOn": "${SessionGrade == null}",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "大班",
+                "value": 1,
+                "visibleOn": "${searchDep == 1 || searchDep == ''}"
+              },
+              {
+                "label": "一年级",
+                "value": 2,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "二年级",
+                "value": 3,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "三年级",
+                "value": 4,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "四年级",
+                "value": 5,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "五年级",
+                "value": 6,
+                "visibleOn": "${searchDep == 1 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "六年级",
+                "value": 7,
+                "visibleOn": "${searchDep == 1 || searchDep == 2 || searchDep == 4 || searchDep == ''}"
+              },
+              {
+                "label": "七年级",
+                "value": 8,
+                "visibleOn": "${searchDep == 1 || searchDep == 2 || searchDep == ''}"
+              },
+              {
+                "label": "八年级",
+                "value": 9,
+                "visibleOn": "${searchDep == 2 || searchDep == ''}"
+              },
+              {
+                "label": "九年级",
+                "value": 10,
+                "visibleOn": "${searchDep == 2 || searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高一",
+                "value": 11,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高二",
+                "value": 12,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              },
+              {
+                "label": "高三",
+                "value": 13,
+                "visibleOn": "${searchDep == 3 || searchDep == ''}"
+              }
+            ]
+          }
         },
         {
           "name": "empName",
-          "label": "授课教师"
+          "label": "授课教师",
+          "searchable": {
+            "label": "授课教师",
+            "name": "searchEmpName",
+            "value": ""
+          }
+
         },
         {
           "name": "clazzYear",
-          "label": "开课年"
+          "label": "开课年",
+          "searchable": {
+            "type": "input-year",
+            "label": "开课年",
+            "name": "searchYear",
+            "format": "x"
+          }
         },
         {
           "name": "clazzSeason",
-          "label": "开课季节"
+          "label": "开课季节",
+          "searchable": {
+            "type": "select",
+            "label": "开课季节",
+            "name": "searchSeason",
+            "value": "",
+            "options":[
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "春季",
+                "value": 1
+              },
+              {
+                "label": "夏季",
+                "value": 2
+              },
+              {
+                "label": "秋季",
+                "value": 3
+              },
+              {
+                "label": "冬季",
+                "value": 4
+              }
+            ]
+          }
         },
         {
           "name": "clazzStartDate",

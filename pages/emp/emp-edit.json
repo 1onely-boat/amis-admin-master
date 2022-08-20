@@ -18,7 +18,7 @@
         "url": "http://localhost:8888/emp/${params.id}"
       },
       "api": {
-        "mehtod": "post",
+        "method": "post",
         "url": "http://localhost:8888/emp/${params.id}/put",
         "data": {
           "&": "$$",
@@ -166,25 +166,41 @@
           "type": "divider"
         },
         {
-          "name": "checkboxes",
+          "name": "empType",
           "type": "checkboxes",
-          "label": "复选框",
+          "label": "选择角色",
           "options": [
             {
-              "label": "OptionA",
-              "value": "a"
+              "label": "校长",
+              "value": 1
             },
             {
-              "label": "OptionB",
-              "value": "b"
+              "label": "副校长",
+              "value": 2
             },
             {
-              "label": "OptionC",
-              "value": "c"
+              "label": "部门主管",
+              "value": 3
             },
             {
-              "label": "OptionD",
-              "value": "d"
+              "label": "教务",
+              "value": 4
+            },
+            {
+              "label": "教师",
+              "value": 5
+            },
+            {
+              "label": "助教",
+              "value": 6
+            },
+            {
+              "label": "督导",
+              "value": 7
+            },
+            {
+              "label": "财务",
+              "value": 8
             }
           ]
         }

@@ -49,12 +49,17 @@
                     adaptor: function (payload) {
                         // console.log("login payload:",payload.data)
                         // console.log("perm", payload.data.permissions)
-
+                        sessionStorage.clear();//登录之前清除一次，否则会和上一个登录用户的信息还在
                         if (payload.status === 0){
                             for (const i in payload.data.permissions) {//将所有权限存入sessionStorage，格式是【权限名:1】
                                 // console.log(i , " :" , payload.data.permissions[i])
                                 sessionStorage.setItem(i, payload.data.permissions[i])
                             }
+                            if (payload.data.SessionDep != null)
+                                sessionStorage.setItem("SessionDep", payload.data.SessionDep)
+                            if (payload.data.SessionGrade != null)
+                                sessionStorage.setItem("SessionGrade", payload.data.SessionGrade)
+                            sessionStorage.setItem("SessionEmpId", payload.data.SessionEmpId)
                             sessionStorage.setItem("token", payload.data.token)
                             // location.href = "/"
                         }
