@@ -1,0 +1,151 @@
+{
+  "type": "page",
+  "title": "课耗明细表${params.id}",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/data-center/stuConsumeList/${params.id}/${params.year}/${params.season}?page=${page}&perPage=${perPage}",
+      "columns": [
+        {
+          "name": "stuId",
+          "label": "学生id",
+          "visible": false
+        },
+        {
+          "name": "stuName",
+          "label": "学生姓名",
+          "sortable": true
+        },
+        {
+          "name": "clazzName",
+          "label": "班级",
+          "sortable": true,
+          "width": 200
+        },
+        {
+          "name": "lessonTimeRange",
+          "label": "上课时间",
+          "sortable": true,
+          "width": 100
+
+        },
+
+        {
+          "name": "clazzPrice",
+          "label": "学费收入",
+          "sortable": true
+        },
+        {
+          "name": "details[0]",
+          "label": "第一次课"
+        },
+        {
+          "name": "details[1]",
+          "label": "第二次课"
+        },
+        {
+          "name": "details[2]",
+          "label": "第三次课"
+        },
+        {
+          "name": "details[3]",
+          "label": "第四次课"
+        },
+        {
+          "name": "details[4]",
+          "label": "第五次课"
+        },
+        {
+          "name": "details[5]",
+          "label": "第六次课"
+        },
+        {
+          "name": "details[6]",
+          "label": "第七次课"
+        },{
+          "name": "details[7]",
+          "label": "第八次课"
+        },{
+          "name": "details[8]",
+          "label": "第九次课"
+        },{
+          "name": "details[9]",
+          "label": "第十次课"
+        },{
+          "name": "details[10]",
+          "label": "第十一次课"
+        },{
+          "name": "details[11]",
+          "label": "第十二次课"
+        },{
+          "name": "details[12]",
+          "label": "第十三次课"
+        },{
+          "name": "details[13]",
+          "label": "第十四次课"
+        },{
+          "name": "details[14]",
+          "label": "第十五次课"
+        },{
+          "name": "details[15]",
+          "label": "第十六次课"
+        },{
+          "name": "details[16]",
+          "label": "第十七次课"
+        },{
+          "name": "details[17]",
+          "label": "第十八次课"
+        },{
+          "name": "details[18]",
+          "label": "第十九次课"
+        },{
+          "name": "details[19]",
+          "label": "第二十次课"
+        },
+        {
+          "name": "details[20]",
+          "label": "第二十一次课"
+        },{
+          "name": "details[21]",
+          "label": "第二十二次课"
+        },{
+          "name": "details[22]",
+          "label": "第二十三次课"
+        },{
+          "name": "details[23]",
+          "label": "第二十四次课"
+        },{
+          "name": "details[24]",
+          "label": "第二十五次课"
+        },{
+          "name": "details[25]",
+          "label": "第二十六次课"
+        },{
+          "name": "details[26]",
+          "label": "第二十七次课"
+        },{
+          "name": "details[27]",
+          "label": "第二十八次课"
+        },{
+          "name": "details[28]",
+          "label": "第二十九次课"
+        },{
+          "name": "details[29]",
+          "label": "第三十次课"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

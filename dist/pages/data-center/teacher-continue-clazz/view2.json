@@ -1,0 +1,52 @@
+{
+  "type": "page",
+  "title": "续报明细表${params.id}",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/data-center/stuContinueList/${params.id}/${params.dep}/${params.year}/${params.season}?page=${page}&perPage=${perPage}",
+      "columns": [
+        {
+          "name": "stuName",
+          "label": "学生姓名"
+        },
+        {
+          "name": "clazzName",
+          "label": "学生班级",
+          "sortable": true
+        },
+        {
+          "name": "clazzTime",
+          "label": "上课时间",
+          "sortable": true
+        },
+        {
+          "type": "mapping",
+          "label": "状态",
+          "name": "stuState",
+          "map": {
+            "1": "在读",
+            "2": "停课"
+          }
+        },
+        {
+          "name": "nextClazzName",
+          "label": "下学期报班",
+          "sortable": true
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

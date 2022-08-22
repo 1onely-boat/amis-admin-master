@@ -1,0 +1,354 @@
+{
+  "type": "page",
+  "title": "课程列表",
+  "visibleOn": "sessionStorage.getItem(\"课程管理\") == 1",
+  "remark": null,
+  "name": "page-demo",
+  "toolbar": [
+    {
+      "type": "button",
+      "label": "新建课程",
+      "level": "primary",
+      "actionType": "drawer",
+      "drawer": {
+        "position": "top",
+        "title": "请填写课程信息",
+        "body":[
+          {
+            "title": "",
+            "type": "form",
+            "api": "http://localhost:8888/course",
+            "name": "sample-edit-form",
+            "body": [
+              {
+                "label": "所属部门",
+                "type": "select",
+                "name": "courseDep",
+                "options": [
+                  {
+                    "label": "小学部",
+                    "value": 1
+                  },
+                  {
+                    "label": "初中部",
+                    "value": 2
+                  },
+                  {
+                    "label": "高中部",
+                    "value": 3
+                  },
+                  {
+                    "label": "素养部",
+                    "value": 4
+                  }
+                ]
+              },
+              {
+                "label": "课程年级",
+                "type": "select",
+                "name": "courseGrade",
+                "required": true,
+                "options": [
+                  {
+                    "label": "大班",
+                    "value": 1,
+                    "visibleOn": "${courseDep == 1}"
+                  },
+                  {
+                    "label": "一年级",
+                    "value": 2,
+                    "visibleOn": "${courseDep == 1 || courseDep == 4}"
+                  },
+                  {
+                    "label": "二年级",
+                    "value": 3,
+                    "visibleOn": "${courseDep == 1 || courseDep == 4}"
+                  },
+                  {
+                    "label": "三年级",
+                    "value": 4,
+                    "visibleOn": "${courseDep == 1 || courseDep == 4}"
+                  },
+                  {
+                    "label": "四年级",
+                    "value": 5,
+                    "visibleOn": "${courseDep == 1 || courseDep == 4}"
+                  },
+                  {
+                    "label": "五年级",
+                    "value": 6,
+                    "visibleOn": "${courseDep == 1 || courseDep == 4}"
+                  },
+                  {
+                    "label": "六年级",
+                    "value": 7,
+                    "visibleOn": "${courseDep == 1 || courseDep == 2 || courseDep == 4}"
+                  },
+                  {
+                    "label": "七年级",
+                    "value": 8,
+                    "visibleOn": "${courseDep == 1 || courseDep == 2}"
+                  },
+                  {
+                    "label": "八年级",
+                    "value": 9,
+                    "visibleOn": "${courseDep == 2}"
+                  },
+                  {
+                    "label": "九年级",
+                    "value": 10,
+                    "visibleOn": "${courseDep == 2 || courseDep == 3}"
+                  },
+                  {
+                    "label": "高一",
+                    "value": 11,
+                    "visibleOn": "${courseDep == 3}"
+                  },
+                  {
+                    "label": "高二",
+                    "value": 12,
+                    "visibleOn": "${courseDep == 3}"
+                  },
+                  {
+                    "label": "高三",
+                    "value": 13,
+                    "visibleOn": "${courseDep == 3}"
+                  }
+                ]
+              },
+              {
+                "label": "学科选择",
+                "type": "select",
+                "name": "subjectId",
+                "required": true,
+                "source": "http://localhost:8888/course/subjectList/${courseDep}",
+                "visibleOn": "${courseDep > 0}"
+              },
+              {
+                "type": "input-text",
+                "name": "courseSubName",
+                "label": "班型设定（创新班、强基班等）：",
+                "value": ""
+              },
+              {
+                "type": "input-number",
+                "name": "coursePrice",
+                "label": "课程单次价格(元)：",
+                "precision": 2,
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "autoGenerateFilter": true,
+      "api": "http://localhost:8888/course/list",
+
+      "bulkActions": [
+        {
+          "label": "批量删除",
+          "type": "button",
+          "level": "danger",
+          "actionType": "ajax",
+          "api": "http://localhost:8888/course/${ids}/deleteS",
+          "confirmText": "确定要批量删除?",
+          "primaryField": "id"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "课程id",
+          "sortable": true,
+          "visible": false
+        },
+        {
+          "name": "courseDep",
+          "label": "课程部门",
+          "sortable": true,
+          "searchable": {
+            "label": "所属部门",
+            "type": "select",
+            "name": "courseDep",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "小学部",
+                "value": 1
+              },
+              {
+                "label": "初中部",
+                "value": 2
+              },
+              {
+                "label": "高中部",
+                "value": 3
+              },
+              {
+                "label": "素养部",
+                "value": 4
+              }
+            ]
+          }
+        },
+        {
+          "name": "courseGrade",
+          "label": "课程年级",
+          "sortable": true,
+          "searchable": {
+            "label": "课程年级",
+            "type": "select",
+            "name": "courseGrade",
+            "visibleOn": "${courseDep != null}",
+            "value": "",
+            "options": [
+              {
+                "label": "所有",
+                "value": ""
+              },
+              {
+                "label": "大班",
+                "value": 1,
+                "visibleOn": "${courseDep == 1 || courseDep == ''}"
+              },
+              {
+                "label": "一年级",
+                "value": 2,
+                "visibleOn": "${courseDep == 1 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "二年级",
+                "value": 3,
+                "visibleOn": "${courseDep == 1 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "三年级",
+                "value": 4,
+                "visibleOn": "${courseDep == 1 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "四年级",
+                "value": 5,
+                "visibleOn": "${courseDep == 1 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "五年级",
+                "value": 6,
+                "visibleOn": "${courseDep == 1 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "六年级",
+                "value": 7,
+                "visibleOn": "${courseDep == 1 || courseDep == 2 || courseDep == 4 || courseDep == ''}"
+              },
+              {
+                "label": "七年级",
+                "value": 8,
+                "visibleOn": "${courseDep == 1 || courseDep == 2 || courseDep == ''}"
+              },
+              {
+                "label": "八年级",
+                "value": 9,
+                "visibleOn": "${courseDep == 2 || courseDep == ''}"
+              },
+              {
+                "label": "九年级",
+                "value": 10,
+                "visibleOn": "${courseDep == 2 || courseDep == 3 || courseDep == ''}"
+              },
+              {
+                "label": "高一",
+                "value": 11,
+                "visibleOn": "${courseDep == 3 || courseDep == ''}"
+              },
+              {
+                "label": "高二",
+                "value": 12,
+                "visibleOn": "${courseDep == 3 || courseDep == ''}"
+              },
+              {
+                "label": "高三",
+                "value": 13,
+                "visibleOn": "${courseDep == 3 || courseDep == ''}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "courseSubject",
+          "label": "课程学科",
+          "sortable": true,
+          "searchable": {
+            "label": "学科",
+            "type": "select",
+            "name": "courseSubject",
+            "visibleOn": "${courseDep != ''}",
+            "value": "",
+            "source": "http://localhost:8888/course/subjectList/${courseDep}"
+          }
+        },
+        {
+          "name": "courseSubName",
+          "label": "班型设定",
+          "sortable": true
+        },
+        {
+          "name": "coursePrice",
+          "label": "课程单次价格"
+        },
+        {
+          "name": "courseFullName",
+          "label": "课程全名"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "修改课程信息",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/course/${id}/put"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "http://localhost:8888/course/${id}/delete"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

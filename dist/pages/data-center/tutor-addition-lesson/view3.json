@@ -1,0 +1,53 @@
+{
+  "type": "page",
+  "title": "补课明细表${params.id}",
+  "remark": null,
+  "name": "page-demo",
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://localhost:8888/data-center/tutorAddition/${params.id}?page=${page}&perPage=${perPage}",
+      "columns": [
+        {
+          "name": "stuName",
+          "label": "学生姓名"
+        },
+        {
+          "name": "clazzName",
+          "label": "学生班级",
+          "sortable": true
+        },
+        {
+          "name": "empName",
+          "label": "任课老师",
+          "sortable": true
+        },
+        {
+          "name": "lessonIndex",
+          "label": "补课课次",
+          "sortable": true
+        },
+        {
+          "name": "additionalLessonDate",
+          "label": "补课时间",
+          "sortable": true
+        },
+        {
+          "name": "additionalLessonTime",
+          "label": "补课时长",
+          "sortable": true
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

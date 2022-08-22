@@ -1,0 +1,141 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/stu/follow",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": {
+        "method": "get",
+        "url": "http://localhost:8888/stu/${params.id}",
+        "data": {
+          "&": "$$",
+          "_from": "browser"
+        }
+      },
+      "api": {
+        "method": "post",
+        "url": "http://localhost:8888/stu/follow/${params.id}/put"
+      },
+      "redirect": "/stu/follow",
+      "controls": [
+        {
+          "type": "static",
+          "name": "stuName",
+          "label": "学生姓名",
+          "required": true,
+          "inline": false,
+          "description": "",
+          "descriptionClassName": "help-block",
+          "placeholder": "",
+          "addOn": null
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "跟进状态",
+          "type": "select",
+          "name": "stuFollowState",
+          "options": [
+            {
+              "label": "未约",
+              "value": "1"
+            },
+            {
+              "label": "未测",
+              "value": "2"
+            },
+            {
+              "label": "未录取",
+              "value": "3"
+            },
+            {
+              "label": "未通知",
+              "value": "4"
+            },
+            {
+              "label": "已通知",
+              "value": "5"
+            },
+            {
+              "label": "未交费",
+              "value": "6"
+            },
+            {
+              "label": "已转化",
+              "value": "7"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "stuFollowPeople",
+          "label": "跟进人",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-date",
+          "name": "stuFollowDate",
+          "label": "跟进时间",
+          "format": "x"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "stuFollowContent",
+          "label": "跟进沟通内容"
+        },
+        {
+          "type": "input-date",
+          "name": "stuFollowExamTime",
+          "label": "预约测试时间",
+          "format": "x"
+        },
+        {
+          "type": "text",
+          "name": "stuFollowExamSubject",
+          "label": "预约测试科目"
+        },
+        {
+          "label": "测试到场情况",
+          "type": "select",
+          "name": "stuFollowExamIsArrive",
+          "options": [
+            {
+              "label": "已到场",
+              "value": "1"
+            },
+            {
+              "label": "未到场",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "type": "input-number",
+          "name": "stuFollowExamScore",
+          "label": "测试分数"
+        }
+      ]
+
+
+    }
+  ]
+}

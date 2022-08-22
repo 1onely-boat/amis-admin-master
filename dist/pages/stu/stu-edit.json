@@ -1,0 +1,175 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/stu/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": {
+        "method": "get",
+        "url": "http://localhost:8888/stu/${params.id}"
+      },
+      "api": {
+        "method": "post",
+        "url": "http://localhost:8888/stu/${params.id}/put",
+        "data": {
+          "&": "$$",
+          "_from": "browser"
+        }
+      },
+      "redirect": "/stu/list",
+      "controls": [
+        {
+          "type": "text",
+          "name": "stuName",
+          "label": "学生姓名",
+          "required": true,
+          "inline": false,
+          "description": "",
+          "descriptionClassName": "help-block",
+          "placeholder": "",
+          "addOn": null
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "所属部门",
+          "type": "select",
+          "name": "stuDep",
+          "options": [
+            {
+              "label": "小学部",
+              "value": 1
+            },
+            {
+              "label": "初中部",
+              "value": 2
+            },
+            {
+              "label": "高中部",
+              "value": 3
+            },
+            {
+              "label": "素养部",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "学生年级",
+          "type": "select",
+          "name": "stuGrade",
+          "required": true,
+          "options": [
+            {
+              "label": "大班",
+              "value": 1,
+              "visibleOn": "${stuDep == 1}"
+            },
+            {
+              "label": "一年级",
+              "value": 2,
+              "visibleOn": "${stuDep == 1 || stuDep == 4}"
+            },
+            {
+              "label": "二年级",
+              "value": 3,
+              "visibleOn": "${stuDep == 1 || stuDep == 4}"
+            },
+            {
+              "label": "三年级",
+              "value": 4,
+              "visibleOn": "${stuDep == 1 || stuDep == 4}"
+            },
+            {
+              "label": "四年级",
+              "value": 5,
+              "visibleOn": "${stuDep == 1 || stuDep == 4}"
+            },
+            {
+              "label": "五年级",
+              "value": 6,
+              "visibleOn": "${stuDep == 1 || stuDep == 4}"
+            },
+            {
+              "label": "六年级",
+              "value": 7,
+              "visibleOn": "${stuDep == 1 || stuDep == 2 || stuDep == 4}"
+            },
+            {
+              "label": "七年级",
+              "value": 8,
+              "visibleOn": "${stuDep == 1 || stuDep == 2}"
+            },
+            {
+              "label": "八年级",
+              "value": 9,
+              "visibleOn": "${stuDep == 2}"
+            },
+            {
+              "label": "九年级",
+              "value": 10,
+              "visibleOn": "${stuDep == 2 || stuDep == 3}"
+            },
+            {
+              "label": "高一",
+              "value": 11,
+              "visibleOn": "${stuDep == 3}"
+            },
+            {
+              "label": "高二",
+              "value": 12,
+              "visibleOn": "${stuDep == 3}"
+            },
+            {
+              "label": "高三",
+              "value": 13,
+              "visibleOn": "${stuDep == 3}"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "意向科目",
+          "type": "select",
+          "name": "stuIntentionSubject",
+          "required": true,
+          "source": "http://localhost:8888/course/subjectList/${stuDep}",
+          "visibleOn": "${stuDep > 0}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "stuSchool",
+          "label": "学生学校：",
+          "required": true
+        },
+        {
+          "type": "input-text",
+          "name": "stuParentPhone",
+          "label": "家长手机号：",
+          "required": true
+        }
+
+      ]
+
+
+    }
+  ]
+}

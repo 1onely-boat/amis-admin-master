@@ -1,0 +1,105 @@
+{
+  "type": "page",
+  "title": "学科列表",
+  "remark": null,
+  "visibleOn": "sessionStorage.getItem(\"学科管理\") == 1",
+  "name": "page-demo",
+  "toolbar": [
+    {
+      "type": "button",
+      "label": "新建学科",
+      "level": "primary",
+      "actionType": "drawer",
+      "drawer": {
+        "position": "top",
+        "title": "提示",
+        "body":[
+          {
+            "title": "",
+            "type": "form",
+            "api": "http://localhost:8888/subject",
+            "name": "sample-edit-form",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "subjectName",
+                "label": "学科名：",
+                "required": true
+              },
+              {
+                "label": "所属部门",
+                "type": "select",
+                "name": "subjectDep",
+                "options": [
+                  {
+                    "label": "小学部",
+                    "value": 1
+                  },
+                  {
+                    "label": "初中部",
+                    "value": 2
+                  },
+                  {
+                    "label": "高中部",
+                    "value": 3
+                  },
+                  {
+                    "label": "素养部",
+                    "value": 4
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+
+      }
+    }
+
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": {
+        "url": "http://localhost:8888/subject/list",
+        "data":{
+          "dep": "${SessionDep}"
+        }
+      },
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "className": "m-b-sm"
+      },
+      "columns": [
+        {
+          "name": "id",
+          "label": "学科id",
+          "sortable": true
+        },
+        {
+          "name": "subjectName",
+          "label": "学科名",
+          "sortable": true
+        },
+        {
+          "name": "subjectDep",
+          "label": "所属部门",
+          "sortable": true
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

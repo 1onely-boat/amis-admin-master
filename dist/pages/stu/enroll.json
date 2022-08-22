@@ -1,0 +1,253 @@
+{
+  "type": "page",
+  "title": "报名${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/stu/follow",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "title": "",
+      "type": "form",
+      "redirect": "/stu/follow",
+      "name": "sample-edit-form",
+      "initApi": "http://localhost:8888/stu/${params.id}",
+      "api": {
+        "method": "post",
+        "url": "http://localhost:8888/stu/enroll",
+        "data": {
+          "stuId": "${params.id}",
+          "clazzId": "${clazzId}",
+          "paymentDate": "${paymentDate}",
+          "paymentDiscountAmount": "${paymentDiscountAmount}",
+          "paymentActuallyAmount": "${coursePrice * clazzSum - remainPrice - paymentDiscountAmount}"
+        }
+      },
+      "data": {
+        "options": [
+          {
+            "label": "小学部",
+            "value": "1",
+            "children": [
+              {
+                "label": "幼儿大班",
+                "value": "1-1"
+              },
+              {
+                "label": "一年级",
+                "value": "1-2"
+              },
+              {
+                "label": "二年级",
+                "value": "1-3"
+              },
+              {
+                "label": "三年级",
+                "value": "1-4"
+              },
+              {
+                "label": "四年级",
+                "value": "1-5"
+              },
+              {
+                "label": "五年级",
+                "value": "1-6"
+              },
+              {
+                "label": "六年级",
+                "value": "1-7"
+              },
+              {
+                "label": "七年级",
+                "value": "1-8"
+              }
+            ]
+          },
+          {
+            "label": "初中部",
+            "value": "2",
+            "children": [
+              {
+                "label": "六年级",
+                "value": "2-7"
+              },
+              {
+                "label": "七年级",
+                "value": "2-8"
+              },
+              {
+                "label": "八年级",
+                "value": "2-9"
+              },
+              {
+                "label": "九年级",
+                "value": "2-10"
+              }
+            ]
+          },
+          {
+            "label": "高中部",
+            "value": "3",
+            "children": [
+              {
+                "label": "九年级",
+                "value": "3-10"
+              },
+              {
+                "label": "高一",
+                "value": "3-11"
+              },{
+                "label": "高二",
+                "value": "3-12"
+              },
+              {
+                "label": "高三",
+                "value": "3-13"
+              }
+            ]
+          },
+          {
+            "label": "素养部",
+            "value": "4",
+            "children": [
+              {
+                "label": "一年级",
+                "value": "4-2"
+              },
+              {
+                "label": "二年级",
+                "value": "4-3"
+              },
+              {
+                "label": "三年级",
+                "value": "4-4"
+              },
+              {
+                "label": "四年级",
+                "value": "4-5"
+              },
+              {
+                "label": "五年级",
+                "value": "4-6"
+              },
+              {
+                "label": "六年级",
+                "value": "4-7"
+              }
+            ]
+          }
+        ]
+      },
+      "controls": [
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "stuName",
+          "label": "学生姓名"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "nested-select",
+          "name": "depAndGrade",
+          "label": "选择部门和年级",
+          "source": "${options}",
+          "onlyLeaf": true,
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "选择班级",
+          "type": "select",
+          "name": "clazzId",
+          "required": true,
+          "visibleOn": "${depAndGrade != null}",
+          "source": {
+            "url": "http://localhost:8888/clazz/clazzList",
+            "method": "get",
+            "trackExpression": "${depAndGrade}",
+            "data": {
+              "depAndGrade": "${depAndGrade}"
+            }
+          }
+        },
+
+        {
+          "type": "service",
+          "api": {
+            "url": "http://localhost:8888/clazz/${clazzId}",
+            "sendOn": "${clazzId != null}"
+          },
+          "body": [
+            {
+              "type": "static",
+              "name": "clazzSum",
+              "label": "课次",
+              "value": "${clazzSum}",
+              "visible": false
+            },
+
+            {
+              "type": "service",
+              "api": {
+                "url": "http://localhost:8888/course/${courseId}",
+                "method": "get",
+                "sendOn": "${courseId != null}"
+              },
+              "body": {
+                "type": "static",
+                "label": "学费",
+                "name": "${coursePrice * clazzSum}"
+              }
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "service",
+              "api":"http://localhost:8888/stop-lesson/${params.id}",
+              "body": {
+                "type": "static",
+                "name": "remainPrice",
+                "label": "结转金额"
+              }
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "input-number",
+              "name": "paymentDiscountAmount",
+              "label": "优惠金额"
+            },
+            {
+              "type": "divider",
+              "label": "实付金额"
+            },
+            {
+              "type": "input-date",
+              "name": "paymentDate",
+              "label": "缴费日期",
+              "format": "x"
+            },
+            {
+              "label": "实付金额",
+              "type": "static",
+              "name": "${coursePrice * clazzSum - remainPrice - paymentDiscountAmount}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

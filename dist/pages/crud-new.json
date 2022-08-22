@@ -1,0 +1,77 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/crud/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "title": "",
+      "type": "form",
+      "redirect": "/crud/list",
+      "name": "sample-edit-form",
+      "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample",
+      "controls": [
+        {
+          "type": "text",
+          "name": "id",
+          "label": "员工id",
+          "required": true,
+          "inline": false,
+          "description": "",
+          "descriptionClassName": "help-block",
+          "placeholder": "",
+          "addOn": null
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empName",
+          "label": "员工姓名",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empSex",
+          "label": "员工性别",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empPhone",
+          "label": "员工手机号"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empType",
+          "label": "员工类型"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empOnduty",
+          "label": "是否在职"
+        }
+      ]
+    }
+  ]
+}

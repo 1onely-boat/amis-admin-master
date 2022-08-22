@@ -1,0 +1,73 @@
+{
+  "type": "page",
+  "title": "查看详情 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/emp/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": "http://localhost:8888/emp/${params.id}",
+
+      "controls": [
+        {
+          "type": "static",
+          "name": "id",
+          "label": "员工id",
+          "placeholder": "${id}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "name",
+          "label": "员工姓名",
+          "placeholder": "${empName}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "sex",
+          "label": "员工性别",
+          "placeholder": "${empSex}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "phone",
+          "label": "员工手机号",
+          "placeholder": "${empPhone}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "type",
+          "label": "员工类型",
+          "placeholder": "${empType}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "onduty",
+          "label": "是否在职",
+          "placeholder": "${empOnduty}"
+        }
+      ]
+    }
+  ]
+}

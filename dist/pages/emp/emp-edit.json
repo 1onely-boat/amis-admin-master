@@ -1,0 +1,212 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/emp/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": {
+        "method": "get",
+        "url": "http://localhost:8888/emp/${params.id}"
+      },
+      "api": {
+        "method": "post",
+        "url": "http://localhost:8888/emp/${params.id}/put",
+        "data": {
+          "&": "$$",
+          "_from": "browser"
+        }
+      },
+      "redirect": "/emp/list",
+      "controls": [
+        {
+          "type": "text",
+          "name": "empName",
+          "label": "员工姓名",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "name": "empSex",
+          "type": "radios",
+          "label": "性别",
+          "options": [
+            {
+              "label": "男",
+              "value": 1
+            },
+            {
+              "label": "女",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "empPhone",
+          "label": "员工手机号"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "部门",
+          "type": "select",
+          "name": "empDep",
+          "options": [
+            {
+              "label": "小学部",
+              "value": 1
+            },
+            {
+              "label": "初中部",
+              "value": 2
+            },
+            {
+              "label": "高中部",
+              "value": 3
+            },
+            {
+              "label": "素养部",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "年级",
+          "type": "select",
+          "multiple": true,
+          "name": "empGrade",
+          "required": true,
+          "options": [
+            {
+              "label": "大班",
+              "value": 1,
+              "visibleOn": "${empDep == 1}"
+            },
+            {
+              "label": "一年级",
+              "value": 2,
+              "visibleOn": "${empDep == 1 || empDep == 4}"
+            },
+            {
+              "label": "二年级",
+              "value": 3,
+              "visibleOn": "${empDep == 1 || empDep == 4}"
+            },
+            {
+              "label": "三年级",
+              "value": 4,
+              "visibleOn": "${empDep == 1 || empDep == 4}"
+            },
+            {
+              "label": "四年级",
+              "value": 5,
+              "visibleOn": "${empDep == 1 || empDep == 4}"
+            },
+            {
+              "label": "五年级",
+              "value": 6,
+              "visibleOn": "${empDep == 1 || empDep == 4}"
+            },
+            {
+              "label": "六年级",
+              "value": 7,
+              "visibleOn": "${empDep == 1 || empDep == 2 || empDep == 4}"
+            },
+            {
+              "label": "七年级",
+              "value": 8,
+              "visibleOn": "${empDep == 1 || empDep == 2}"
+            },
+            {
+              "label": "八年级",
+              "value": 9,
+              "visibleOn": "${empDep == 2}"
+            },
+            {
+              "label": "九年级",
+              "value": 10,
+              "visibleOn": "${empDep == 2 || empDep == 3}"
+            },
+            {
+              "label": "高一",
+              "value": 11,
+              "visibleOn": "${empDep == 3}"
+            },
+            {
+              "label": "高二",
+              "value": 12,
+              "visibleOn": "${empDep == 3}"
+            },
+            {
+              "label": "高三",
+              "value": 13,
+              "visibleOn": "${empDep == 3}"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "name": "empType",
+          "type": "checkboxes",
+          "label": "选择角色",
+          "options": [
+            {
+              "label": "校长",
+              "value": 1
+            },
+            {
+              "label": "副校长",
+              "value": 2
+            },
+            {
+              "label": "部门主管",
+              "value": 3
+            },
+            {
+              "label": "教务",
+              "value": 4
+            },
+            {
+              "label": "教师",
+              "value": 5
+            },
+            {
+              "label": "助教",
+              "value": 6
+            },
+            {
+              "label": "督导",
+              "value": 7
+            },
+            {
+              "label": "财务",
+              "value": 8
+            }
+          ]
+        }
+      ]
+
+
+    }
+  ]
+}

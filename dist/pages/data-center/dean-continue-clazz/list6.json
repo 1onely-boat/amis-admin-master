@@ -1,26 +1,27 @@
 {
   "type": "page",
-  "title": "助教补课统计",
+  "title": "教务续班率统计",
   "remark": null,
-  "visibleOn": "sessionStorage.getItem(\"助教补课统计\") == 1",
+  "visibleOn": "sessionStorage.getItem(\"教务续班统计\") == 1",
   "name": "page-demo",
   "body": [
     {
       "type": "crud",
       "name": "sample",
       "api": {
-        "url": "http://localhost:8888/data-center/list3",
+        "url": "http://localhost:8888/data-center/list6",
         "sendOn": "${dep != null}",
         "data":{
           "page": "${page}",
           "perPage": "${perPage}",
           "sessionDep": "${SessionDep}",
-          "select": "${select}",
-          "dep": "${dep}"
+          "dep": "${dep}",
+          "clazzYear": "${clazzYear}",
+          "season": "${season}"
         }
       },
       "filter": {
-        "title": "请选择部门，统计日期范围",
+        "title": "请选择开课年、季度、部门",
         "body": [
           {
             "type": "flex",
@@ -28,10 +29,35 @@
             "alignItems": "center",
             "items": [
               {
-                "type": "input-date-range",
-                "name": "select",
-                "label": "日期范围",
-                "value": "1640966400,1672502400"
+                "type": "input-year",
+                "name": "clazzYear",
+                "label": "开课年：",
+                "value": 1690819200000,
+                "format": "x"
+              },
+              {
+                "label": "季度",
+                "type": "select",
+                "name": "season",
+                "value": 1,
+                "options": [
+                  {
+                    "label": "春季",
+                    "value": 1
+                  },
+                  {
+                    "label": "夏季",
+                    "value": 2
+                  },
+                  {
+                    "label": "秋季",
+                    "value": 3
+                  },
+                  {
+                    "label": "冬季",
+                    "value": 4
+                  }
+                ]
               },
               {
                 "label": "部门",
@@ -63,24 +89,37 @@
       "columns": [
         {
           "name": "empId",
-          "label": "助教id",
+          "label": "教务id",
           "visible": false
         },
         {
           "name": "empName",
-          "label": "助教姓名",
+          "label": "教务姓名",
           "sortable": true
         },
         {
-          "name": "additionNum",
-          "label": "补课总人数",
-          "width": 20,
+          "name": "chargeGrade",
+          "label": "负责年段",
+          "visible": false
+        },
+        {
+          "name": "chargeGradeName",
+          "label": "负责年段",
           "sortable": true
         },
         {
-          "name": "additionTimeSum",
-          "label": "补课总时长（分钟）",
+          "name": "finishNum",
+          "label": "结课人数",
           "sortable": true
+        },
+        {
+          "name": "continueNum",
+          "label": "续报人数",
+          "sortable": true
+        },
+        {
+          "name": "continueRate",
+          "label": "续报率"
         },
         {
           "type": "operation",
@@ -95,7 +134,7 @@
                   "label": "查看明细",
                   "level": "primary",
                   "actionType": "link",
-                  "link": "/data/tutorAddition/${empId}"
+                  "link": "/data/gradeContinue/${chargeGrade}/${dep}/${clazzYear}/${season}"
                 }
               ]
             }
