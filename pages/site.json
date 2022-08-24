@@ -34,18 +34,18 @@
                 "schemaApi": "get:/pages/emp/emp-edit.json"
               },
 
+              {
+                "label": "跟进管理",
+                "url": "/stu/follow",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/stu/stu-follow.json"
+              },
 
               {
                 "label": "学生管理",
                 "url": "/stu/list",
                 "icon": "fa fa-list",
                 "schemaApi": "get:/pages/stu/stu-list.json"
-              },
-              {
-                "label": "跟进管理",
-                "url": "/stu/follow",
-                "icon": "fa fa-plus",
-                "schemaApi": "get:/pages/stu/stu-follow.json"
               },
               {
                 "label": "修改学生信息",
@@ -71,6 +71,18 @@
             "icon": "fa fa-cube",
             "children": [
               {
+                "label": "学科管理",
+                "url": "/subject/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/subject/subject-list.json"
+              },
+              {
+                "label": "课程管理",
+                "url": "/course/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/course/course-list.json"
+              },
+              {
                 "label": "班级管理",
                 "url": "/clazz/list",
                 "icon": "fa fa-list",
@@ -88,21 +100,9 @@
                 "schemaApi": "get:/pages/clazz/clazz-edit.json"
               },
               {
-                "label": "课程管理",
-                "url": "/course/list",
-                "icon": "fa fa-list",
-                "schemaApi": "get:/pages/course/course-list.json"
-              },
-              {
                 "label": "修改课程信息",
                 "url": "/course/:id/put",
                 "schemaApi": "get:/pages/course/course-edit.json"
-              },
-              {
-                "label": "学科管理",
-                "url": "/subject/list",
-                "icon": "fa fa-list",
-                "schemaApi": "get:/pages/subject/subject-list.json"
               }
             ]
           },

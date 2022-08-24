@@ -23,11 +23,12 @@
     },
     {
       "type": "button",
-      "label": "角色权限管理（开发用）",
+      "label": "角色权限管理",
       "actionType": "drawer",
       "drawer": {
-        "size": "xl",
-        "position": "top",
+        "size": "lg",
+        "resizable": true,
+        "position": "right",
         "title": "选择角色和权限",
         "body":[
           {
@@ -79,34 +80,30 @@
               {
                 "type": "service",
                 "api": {
-                  "url":"http://localhost:8888/emp/getRolesPerm/${roleId}",
+                  "url":"http://localhost:8888/emp/getPerm/${roleId}",
                   "sendOn": "${roleId != null}"
                 },
                 "body": [
+
                   {
-                    "type": "static-json",
-                    "name": "json",
-                    "label": "已拥有权限",
-                    "visibleOn": "${options != null}",
-                    "value": "${options}"
+                    "type": "input-tree",
+                    "name": "permissionIds",
+                    "required": true,
+                    "label": "请位角色分配权限",
+                    "autoCheckChildren": false,
+                    "showOutline": true,
+                    "cascade": true,
+                    "initiallyOpen": false,
+                    "multiple": true,
+                    "withChildren": true,
+                    "source": {
+                      "url": "http://localhost:8888/emp/getAllPerms"
+                    }
                   }
                 ]
-              },
-              {
-                "type": "input-tree",
-                "name": "permissionIds",
-                "required": true,
-                "label": "请位角色分配权限",
-                "autoCheckChildren": true,
-                "showOutline": true,
-                "cascade": true,
-                "initiallyOpen": false,
-                "multiple": true,
-                "withChildren": true,
-                "source": {
-                  "url": "http://localhost:8888/emp/getAllPerms"
-                }
+
               }
+
 
             ]
           }
@@ -120,10 +117,10 @@
       "level": "primary",
       "actionType": "drawer",
       "drawer": {
-        "height": 800,
-        "position": "top",
-        "title": "请填写员工信息",
+        "size": "lg",
         "resizable": true,
+        "position": "right",
+        "title": "请填写员工信息",
         "body":[
           {
             "title": "",
@@ -331,8 +328,8 @@
           }
         ]
 
-        }
       }
+    }
 
   ],
   "body": [
@@ -340,7 +337,14 @@
       "type": "crud",
       "name": "sample",
       "autoGenerateFilter": true,
-      "api": "http://localhost:8888/emp/list",
+      "api": {
+        "url": "http://localhost:8888/emp/list",
+        "data": {
+          "sessionEmpId": "${SessionEmpId}",
+          "page": "${page}",
+          "perPage": "${perPage}"
+        }
+      },
       "bulkActions": [
         {
           "label": "批量修改",

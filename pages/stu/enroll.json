@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "报名${params.id}",
+  "title": "学生报名",
   "remark": null,
   "toolbar": [
     {
@@ -12,7 +12,7 @@
   ],
   "body": [
     {
-      "title": "",
+      "title": "填写报名信息",
       "type": "form",
       "redirect": "/stu/follow",
       "name": "sample-edit-form",

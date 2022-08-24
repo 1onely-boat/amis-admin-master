@@ -22,6 +22,7 @@
             "body": [
               {
                 "label": "所属部门",
+                "required": true,
                 "type": "select",
                 "name": "courseDep",
                 "options": [
@@ -128,7 +129,8 @@
                 "type": "input-text",
                 "name": "courseSubName",
                 "label": "班型设定（创新班、强基班等）：",
-                "value": ""
+                "value": "",
+                "required": true
               },
               {
                 "type": "input-number",

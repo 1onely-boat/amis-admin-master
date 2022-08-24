@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "修改 ${params.id}",
+  "title": "学生跟进管理",
   "remark": null,
   "toolbar": [
     {

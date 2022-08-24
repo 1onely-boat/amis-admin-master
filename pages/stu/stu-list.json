@@ -31,6 +31,7 @@
                 "label": "所属部门",
                 "type": "select",
                 "name": "stuDep",
+                "required": true,
                 "options": [
                   {
                     "label": "小学部",
@@ -181,7 +182,8 @@
             "data":{
               "dep": "${SessionDep}",
               "grade": "${SessionGrade}"
-            }
+            },
+            "adaptor": "return {\n                  ...payload,\n                  status: payload.code === 401 ? 1 : payload.code\n                };"
           }
         },
         "bulkActions"

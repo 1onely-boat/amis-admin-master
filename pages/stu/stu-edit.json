@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "修改 ${params.id}",
+  "title": "修改学生信息",
   "remark": null,
   "toolbar": [
     {
@@ -13,6 +13,7 @@
   "body": [
     {
       "type": "form",
+      "title": "请填写学生信息",
       "initApi": {
         "method": "get",
         "url": "http://localhost:8888/stu/${params.id}"

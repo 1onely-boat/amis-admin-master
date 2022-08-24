@@ -6,6 +6,24 @@
   "name": "page-demo",
   "toolbar": [
     {
+      "type": "form",
+      "body": [
+        {
+          "type": "input-excel",
+          "name": "excel"
+        }
+      ],
+      "actions": [
+        {
+          "label": "导入学生表",
+          "type": "button",
+          "actionType": "ajax",
+          "confirmText": "确定要导入该学生表嘛？",
+          "api": "http://localhost:8888/stu/importExcel"
+        }
+      ]
+    },
+    {
       "type": "button",
       "label": "新增学生",
       "level": "primary",
@@ -162,11 +180,12 @@
           "label": "导出学生跟进信息",
           "filename": "学生跟进信息",
           "api": {
-            "url": "http://localhost:8888/stu/export",
+            "url": "http://localhost:8888/stu/export1",
             "data":{
               "dep": "${SessionDep}",
               "grade": "${SessionGrade}"
-            }
+            },
+            "adaptor": "if (payload.status === 401)\n                  window.alert(\"无权限\")\n                return payload"
           }
         }
       ],

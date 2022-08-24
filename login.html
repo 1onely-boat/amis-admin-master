@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link rel="stylesheet" href="https://unpkg.com/amis@beta/sdk/sdk.css" />
     <link rel="stylesheet" href="https://unpkg.com/amis@beta/sdk/helper.css" />
-    <link rel="stylesheet" href="./sdk/iconfont.css" />
+    <!--    <link rel="stylesheet" href="./sdk/iconfont.css" />-->
     <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
     <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
     <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
@@ -37,15 +37,16 @@
         // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
             type: 'page',
-            title: '表单页面',
+            title: '登录',
             body: {
                 type: 'form',
                 name: 'form1',
                 mode: 'horizontal',
+                title:"请输入用户名和密码",
                 redirect: "/",
                 api:{
-                   url: 'http://localhost:8888/login',前端
-                   method: 'post',
+                    url: 'http://localhost:8888/login',
+                    method: 'post',
                     adaptor: function (payload) {
                         // console.log("login payload:",payload.data)
                         // console.log("perm", payload.data.permissions)
@@ -82,7 +83,7 @@
         };
         let amisScoped = amis.embed('#root', amisJSON,{
             data:{
-                username: 'default'
+                "username": "default"
             }
         });
         // amisScoped.getComponentByName('page.form1').setValues({

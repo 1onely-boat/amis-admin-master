@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "课耗明细表${params.id}",
+  "title": "课耗明细表",
   "remark": null,
   "name": "page-demo",
   "body": [

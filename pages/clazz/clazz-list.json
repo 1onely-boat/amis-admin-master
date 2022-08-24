@@ -12,12 +12,12 @@
       "actionType": "drawer",
       "drawer": {
         "position": "top",
+        "resizable": true ,
         "title": "请填写班级信息",
         "body":[
           {
             "title": "",
             "type": "form",
-            "debug": true,
             "api": "http://localhost:8888/clazz",
             "name": "sample-edit-form",
             "body": [

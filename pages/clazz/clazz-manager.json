@@ -12,17 +12,22 @@
       {
         "title": "请选择课次",
         "type": "form",
+        "mode": "inline",
+        "autoFocus": false,
         "target": "sample,my_service",
         "body": [
           {
-            "label": "请选择课次${lessonIndex}",
             "type": "select",
             "value": 0,
             "name": "lessonIndex",
             "source": "http://localhost:8888/lesson/indexList/${params.id}"
+          },
+          {
+            "type": "submit",
+            "label": "确定",
+            "level": "success"
           }
-        ],
-        "submitText": "确定"
+        ]
       },
     {
       "type": "button",
@@ -411,7 +416,6 @@
                     "body": [
                       {
                         "type": "form",
-                        "debug": true,
                         "api": {
                           "method": "post",
                           "url": "http://localhost:8888/lesson/changeClazz/${id}",
@@ -505,7 +509,6 @@
                     "body": [
                       {
                         "type": "form",
-                        "debug": true,
                         "api": {
                           "method": "post",
                           "url": "http://localhost:8888/lesson/stopLesson/${id}",
@@ -578,7 +581,6 @@
                     "body": [
                       {
                         "type": "form",
-                        "debug": true,
                         "api": {
                           "method": "post",
                           "url": "http://localhost:8888/lesson/quitLesson/${id}",

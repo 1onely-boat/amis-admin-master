@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "续报明细表${params.id}",
+  "title": "续报明细表",
   "remark": null,
   "name": "page-demo",
   "body": [
