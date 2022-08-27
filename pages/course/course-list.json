@@ -6,6 +6,26 @@
   "name": "page-demo",
   "toolbar": [
     {
+      "type": "form",
+      "body": [
+        {
+          "type": "input-excel",
+          "name": "excel",
+          "plainText": true
+        }
+      ],
+      "actions": [
+
+        {
+          "label": "导入课程表",
+          "type": "button",
+          "actionType": "ajax",
+          "confirmText": "确定要导入该课程表嘛？",
+          "api": "http://localhost:8888/course/importExcel"
+        }
+      ]
+    },
+    {
       "type": "button",
       "label": "新建课程",
       "level": "primary",

@@ -56,6 +56,8 @@
                                 // console.log(i , " :" , payload.data.permissions[i])
                                 sessionStorage.setItem(i, payload.data.permissions[i])
                             }
+                            console.log("有没有dep啊",payload.data.SessionDep)
+                            console.log("有没有grade啊",payload.data.SessionGrade)
                             if (payload.data.SessionDep != null)
                                 sessionStorage.setItem("SessionDep", payload.data.SessionDep)
                             if (payload.data.SessionGrade != null)

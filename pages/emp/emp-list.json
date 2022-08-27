@@ -7,22 +7,6 @@
   "toolbar": [
     {
       "type": "button",
-      "label": "自定义js",
-      "level": "primary",
-      "visibleOn": "${perm.人员管理 == 2}",
-      "onEvent": {
-        "click": {
-          "actions": [
-            {
-              "actionType": "custom",
-              "script": "doAction({actionType: 'ajax', args: {api: 'http://localhost:8888/emp/1'}});\n sessionStorage.setItem(\"jwt\", \"2\");\n doAction({actionType: 'link', \"args\": {\n                \"link\": \"/stu/list\"\n              }});"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "type": "button",
       "label": "角色权限管理",
       "actionType": "drawer",
       "drawer": {
@@ -329,7 +313,44 @@
         ]
 
       }
+    },
+    {
+      "type": "form",
+      "title": "批量导入员工信息",
+      "body": [
+        {
+          "type": "input-excel",
+          "name": "excel"
+        }
+      ],
+      "actions": [
+
+        {
+          "label": "导入员工表",
+          "type": "button",
+          "actionType": "ajax",
+          "confirmText": "确定要导入该员工表嘛？",
+          "api": "http://localhost:8888/emp/importExcel"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "label": "自定义js",
+      "level": "primary",
+      "visibleOn": "${perm.人员管理 == 2}",
+      "onEvent": {
+        "click": {
+          "actions": [
+            {
+              "actionType": "custom",
+              "script": "doAction({actionType: 'ajax', args: {api: 'http://localhost:8888/emp/1'}});\n sessionStorage.setItem(\"jwt\", \"2\");\n doAction({actionType: 'link', \"args\": {\n                \"link\": \"/stu/list\"\n              }});"
+            }
+          ]
+        }
+      }
     }
+
 
   ],
   "body": [
@@ -342,32 +363,12 @@
         "data": {
           "sessionEmpId": "${SessionEmpId}",
           "page": "${page}",
-          "perPage": "${perPage}"
+          "perPage": "${perPage}",
+          "empDep": "${empDep}",
+          "empName": "${empName}"
         }
       },
       "bulkActions": [
-        {
-          "label": "批量修改",
-          "type": "button",
-          "actionType": "dialog",
-          "level": "primary",
-          "visible": false,
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/sample/bulkUpdate2/",
-              "controls": [
-                {
-                  "type": "text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
-            }
-          }
-        },
         {
           "label": "批量删除",
           "type": "button",

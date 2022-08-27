@@ -35,18 +35,19 @@
               },
 
               {
+                "label": "学生管理",
+                "url": "/stu/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/stu/stu-list.json"
+              },
+
+              {
                 "label": "跟进管理",
                 "url": "/stu/follow",
                 "icon": "fa fa-plus",
                 "schemaApi": "get:/pages/stu/stu-follow.json"
               },
 
-              {
-                "label": "学生管理",
-                "url": "/stu/list",
-                "icon": "fa fa-list",
-                "schemaApi": "get:/pages/stu/stu-list.json"
-              },
               {
                 "label": "修改学生信息",
                 "url": "/stu/:id/put",

@@ -40,12 +40,29 @@
           "addOn": null
         },
         {
+          "name": "stuSex",
+          "type": "radios",
+          "label": "性别",
+          "required": true,
+          "options": [
+            {
+              "label": "男",
+              "value": 1
+            },
+            {
+              "label": "女",
+              "value": 0
+            }
+          ]
+        },
+        {
           "type": "divider"
         },
         {
           "label": "所属部门",
           "type": "select",
           "name": "stuDep",
+          "required": true,
           "options": [
             {
               "label": "小学部",
@@ -166,7 +183,34 @@
           "name": "stuParentPhone",
           "label": "家长手机号：",
           "required": true
+        },
+        {
+          "type": "input-date",
+          "name": "stuBirth",
+          "label": "生日",
+          "format": "x"
+        },
+        {
+          "type": "input-text",
+          "name": "stuAddr",
+          "label": "家庭住址"
+        },
+        {
+          "type": "input-text",
+          "name": "stuFrom",
+          "label": "学员来源"
+        },
+        {
+          "type": "input-text",
+          "name": "stuFollowPeople",
+          "label": "跟进人"
+        },
+        {
+          "type": "input-text",
+          "name": "stuNote",
+          "label": "备注"
         }
+
 
       ]
 

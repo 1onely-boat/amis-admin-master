@@ -6,6 +6,26 @@
   "name": "page-demo",
   "toolbar": [
     {
+      "type": "form",
+      "body": [
+        {
+          "label": "批量导入班级",
+          "type": "input-excel",
+          "name": "excel"
+        }
+      ],
+      "actions": [
+
+        {
+          "label": "导入班级表",
+          "type": "button",
+          "actionType": "ajax",
+          "confirmText": "确定要导入该班级表嘛？",
+          "api": "http://localhost:8888/clazz/importExcel"
+        }
+      ]
+    },
+    {
       "type": "button",
       "label": "新建班级",
       "level": "primary",

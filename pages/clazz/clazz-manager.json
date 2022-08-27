@@ -26,25 +26,36 @@
             "type": "submit",
             "label": "确定",
             "level": "success"
+          },
+          {
+            "type": "button",
+            "label": "完成点到",
+            "className": "mb-2",
+            "level": "primary",
+            "onEvent": {
+              "click": {
+                "actions": [
+                  {
+                    "actionType": "ajax",
+                    "args": {
+                      "api": {
+                        "url":"http://localhost:8888/lesson/lock/${params.id}",
+                        "data": {
+                          "lessonIndex": "${lessonIndex}"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "actionType": "reload",
+                    "componentId": "crud_reload"
+                  }
+                ]
+              }
+            }
           }
         ]
-      },
-    {
-      "type": "button",
-      "label": "完成点到",
-      "className": "mb-2",
-      "level": "primary",
-      "onEvent": {
-        "click": {
-          "actions": [
-            {
-              "actionType": "reload",
-              "componentId": "crud_reload"
-            }
-          ]
-        }
       }
-    }
   ],
   "body": [
 
@@ -62,7 +73,7 @@
                 "type": "hbox",
                 "columns": [
                   {
-                    "label": "班级人数",
+                    "label": "班级报名人数",
                     "name": "${clazzMember}"
                   },
                   {
@@ -132,6 +143,10 @@
       },
       "columns": [
         {
+          "name": "isLock",
+          "visible": false
+        },
+        {
           "name": "id",
           "label": "学生id",
           "sortable": true,
@@ -147,12 +162,12 @@
         },
         {
           "type": "service",
-          "visibleOn": "${clazzIsFinish == 0}",
+          "visibleOn": "sessionStorage.getItem(\"结课后管理班级\") == 1 || clazzIsFinish == 0",
           "label": "点到（处于补课、停课状态无法点到）",
           "body": {
             "type": "button-toolbar",
-            "visibleOn": "${stuState != 4 && stuState != 7}",
             "name": "buttonList",
+            "visibleOn": "stuState != 4 && stuState != 7 && (sessionStorage.getItem(\"结课后管理班级\") == 1 || isLock == 0)",
             "buttons": [
               {
                 "type": "button",
@@ -221,20 +236,27 @@
                   "click": {
                     "actions": [
                       {
-                        "actionType": "ajax",
-                        "args": {
-                          "api": {
-                            "url":"http://localhost:8888/lesson/check/${id}",
-                            "method": "post",
-                            "data": {
-                              "stuState": 3,
-                              "clazzId": "${params.id}",
-                              "lessonIndex": "${lessonIndex}"
-                            }
-                          },
-                          "messages":{
-                            "success": "点到成功",
-                            "failed": "点到失败"
+                        "actionType": "dialog",
+                        "dialog": {
+                          "title": "表单设置",
+                          "body": {
+                            "type": "form",
+                            "api": {
+                              "url": "http://localhost:8888/lesson/check/${id}",
+                              "data": {
+                                "stuState": 3,
+                                "clazzId": "${params.id}",
+                                "lessonIndex": "${lessonIndex}",
+                                "reason": "${reason}"
+                              }
+                            },
+                            "body": [
+                              {
+                                "type": "input-text",
+                                "name": "reason",
+                                "label": "请假理由"
+                              }
+                            ]
                           }
                         }
                       }
@@ -264,7 +286,7 @@
         {
           "type": "operation",
           "label": "操作",
-          "visibleOn": "${clazzIsFinish == 0}",
+          "visibleOn": "sessionStorage.getItem(\"结课后管理班级\") == 1 || clazzIsFinish == 0",
           "width": "",
           "buttons": [
             {
@@ -849,6 +871,11 @@
           ],
           "placeholder": "-",
           "fixed": "right"
+        },
+        {
+          "name": "askForLeaveReason",
+          "type": "static",
+          "label": "请假理由"
         }
       ],
       "affixHeader": true,
