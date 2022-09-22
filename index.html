@@ -148,11 +148,11 @@
                   // location.href = "/login"
                   location.href = "/login"//部署在后端，要改成这个
                 }
-                // if (api.url.indexOf("http") === 0){//以后如果服务器ip变了，在这里改就好了
-                //   const temp = api.url.slice(21);//从21开始截取url，也就是截取端口号后面的地址
-                //   api.url = "http://47.98.48.62:8888" + temp
-                //   console.log(api.url)
-                // }
+                if (api.url.indexOf("http") === 0){//以后如果服务器ip变了，在这里改就好了
+                  const temp = api.url.slice(21);//从21开始截取url，也就是截取端口号后面的地址
+                  api.url = "http://localhost:8888" + temp
+                  console.log(api.url)
+                }
 
                 // api.url = "http://localhost:3000" + api.url;//后续可以通过这行代码设定url前缀
                 console.log("全局请求适配器", api)

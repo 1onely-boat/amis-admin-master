@@ -35,6 +35,11 @@
           "visible": false
         },
         {
+          "type": "input-text",
+          "name": "clazzName",
+          "label": "班级名："
+        },
+        {
           "label": "课程选择",
           "type": "select",
           "name": "courseId",
@@ -126,6 +131,12 @@
           ]
         },
         {
+          "label": "上课日(周一、周二...)",
+          "type": "input-text",
+          "name": "clazzDay",
+          "visibleOn": "${clazzFrequency == 2}"
+        },
+        {
           "label": "班级类型",
           "type": "select",
           "name": "clazzType",
@@ -159,6 +170,11 @@
           "name": "clazzMostMember",
           "label": "满班人数",
           "required": true
+        },
+        {
+          "label": "教室安排",
+          "type": "input-text",
+          "name": "clazzRoom"
         }
       ]
 

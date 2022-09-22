@@ -36,16 +36,39 @@
               "click": {
                 "actions": [
                   {
-                    "actionType": "ajax",
-                    "args": {
-                      "api": {
-                        "url":"http://localhost:8888/lesson/lock/${params.id}",
-                        "data": {
-                          "lessonIndex": "${lessonIndex}"
+                    "actionType": "dialog",
+                    "dialog": {
+                      "title": "在弹框中的表单",
+                      "actions": [
+                        {
+                          "label": "提交表单",
+                          "actionType": "submit",
+                          "primary": true,
+                          "type": "button"
                         }
+                      ],
+                      "body": {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "http://localhost:8888/lesson/lock/${params.id}",
+                          "data": {
+                            "lessonIndex": "${lessonIndex}",
+                            "lessonDate": "${lessonDate}"
+                          }
+                        },
+                        "body": [
+                          {
+                            "type": "input-date",
+                            "name": "lessonDate",
+                            "label": "上课日期",
+                            "format": "x"
+                          }
+                        ]
                       }
                     }
                   },
+
                   {
                     "actionType": "reload",
                     "componentId": "crud_reload"

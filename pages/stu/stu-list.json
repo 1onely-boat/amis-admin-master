@@ -160,6 +160,12 @@
                 "required": true
               },
               {
+                "type": "input-text",
+                "name": "stuParentPhone2",
+                "label": "家长手机号2：",
+                "required": true
+              },
+              {
                 "type": "input-date",
                 "name": "stuBirth",
                 "label": "生日",
@@ -665,6 +671,11 @@
             "name": "searchPhone",
             "value": ""
           }
+        },
+        {
+          "name": "stuParentPhone2",
+          "label": "家长手机号2",
+          "required": false
         },
         {
           "label": "备注",

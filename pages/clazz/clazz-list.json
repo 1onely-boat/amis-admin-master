@@ -139,6 +139,12 @@
                 ]
               },
               {
+                "label": "上课日(周一、周二...)",
+                "type": "input-text",
+                "name": "clazzDay",
+                "visibleOn": "${clazzFrequency == 2}"
+              },
+              {
                 "label": "班级类型",
                 "type": "select",
                 "name": "clazzType",
@@ -172,6 +178,11 @@
                 "name": "clazzMostMember",
                 "label": "满班人数",
                 "required": true
+              },
+              {
+                "label": "教室安排",
+                "type": "input-text",
+                "name": "clazzRoom"
               }
             ]
           }
@@ -416,6 +427,10 @@
           "label": "上课频率"
         },
         {
+          "name": "clazzDay",
+          "label": "上课日"
+        },
+        {
           "name": "clazzType",
           "label": "班级类型"
         },
@@ -430,6 +445,10 @@
         {
           "name": "clazzMostMember",
           "label": "满班人数"
+        },
+        {
+          "name": "clazzRoom",
+          "label": "上课教室"
         },
         {
           "label": "是否结课",
